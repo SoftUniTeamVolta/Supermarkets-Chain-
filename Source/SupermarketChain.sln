@@ -15,6 +15,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupermarketChain.Data.Commo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupermarketChain.Common", "SupermarketChain.Common\SupermarketChain.Common.csproj", "{5D766DA9-2FE3-46ED-9EB9-15F4CA616D7E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E1ABA4FF-BEB9-416F-A182-E387B24A7E25}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupermarketChain.Data.Contracts", "SupermarketChain.Data.Contracts\SupermarketChain.Data.Contracts.csproj", "{68944AFE-69FD-4D50-A625-54708527516D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +46,10 @@ Global
 		{5D766DA9-2FE3-46ED-9EB9-15F4CA616D7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D766DA9-2FE3-46ED-9EB9-15F4CA616D7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D766DA9-2FE3-46ED-9EB9-15F4CA616D7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68944AFE-69FD-4D50-A625-54708527516D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68944AFE-69FD-4D50-A625-54708527516D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68944AFE-69FD-4D50-A625-54708527516D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68944AFE-69FD-4D50-A625-54708527516D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,5 +58,6 @@ Global
 		{CC4B6737-1ABF-495F-B928-E0BBC1B0AE7C} = {121DEAD5-97FC-4051-ABBD-B5D5926E72DA}
 		{0A4E51E9-DE65-4180-AB57-FECFDF574D8E} = {121DEAD5-97FC-4051-ABBD-B5D5926E72DA}
 		{45B8E943-164A-4EF7-89FE-605616B16A84} = {121DEAD5-97FC-4051-ABBD-B5D5926E72DA}
+		{68944AFE-69FD-4D50-A625-54708527516D} = {121DEAD5-97FC-4051-ABBD-B5D5926E72DA}
 	EndGlobalSection
 EndGlobal

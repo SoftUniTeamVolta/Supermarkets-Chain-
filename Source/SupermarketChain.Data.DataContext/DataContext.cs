@@ -1,12 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SupermarketChain.Data.DataContext
+﻿namespace SupermarketChain.Data.DataContext
 {
-    class DataContext
+    using System.Data.Entity;
+
+    using Migrations;
+    using Models;
+
+    public class DataContext : DbContext, IDataContext
     {
+        public DataContext()
+            : base("SupermarketChain")
+        {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataContext, Configuration>());
+        }
+
+
+        public DbSet<Product> Products { get; set; }
+
+        public static DataContext Create()
+        {
+            return new DataContext();
+        }
+
+        public new IDbSet<T> Set<T>() where T : class
+        {
+            return base.Set<T>();
+        }
     }
 }
