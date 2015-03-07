@@ -26,7 +26,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupermarketChain.Data.Contr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{394BE658-ADC8-4021-85BA-E1D0F4FF3655}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupermarketChain.Services.OracleExporter", "SupermaketChain.Services.OracleExporter\SupermarketChain.Services.OracleExporter.csproj", "{D5A57E56-E0DC-4753-9174-08A31E19BEB8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupermarketChain.Services.OracleExporter", "SupermarketChain.Services.OracleExporter\SupermarketChain.Services.OracleExporter.csproj", "{D5A57E56-E0DC-4753-9174-08A31E19BEB8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hosts", "Hosts", "{ED31FA6B-2657-48B7-AC9D-27D54243EED3}"
 EndProject
