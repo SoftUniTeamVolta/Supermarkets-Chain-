@@ -9,6 +9,8 @@
     public interface IDataContext : IDisposable
     {
         DbSet<Product> Products { get; set; }
+        DbSet<Vendor> Vendors { get; set; }
+        DbSet<Measure> Measures { get; set; }
 
         int SaveChanges();
         DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
