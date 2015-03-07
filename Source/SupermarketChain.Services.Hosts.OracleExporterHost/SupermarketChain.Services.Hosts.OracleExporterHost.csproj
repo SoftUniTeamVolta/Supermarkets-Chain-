@@ -55,9 +55,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SupermaketChain.Services.OracleExporter\SupermaketChain.Services.OracleExporter.csproj">
+    <ProjectReference Include="..\SupermaketChain.Services.OracleExporter\SupermarketChain.Services.OracleExporter.csproj">
       <Project>{d5a57e56-e0dc-4753-9174-08a31e19beb8}</Project>
-      <Name>SupermaketChain.Services.OracleExporter</Name>
+      <Name>SupermarketChain.Services.OracleExporter</Name>
     </ProjectReference>
     <ProjectReference Include="..\SupermarketChain.Common\SupermarketChain.Common.csproj">
       <Project>{5d766da9-2fe3-46ed-9eb9-15f4ca616d7e}</Project>
