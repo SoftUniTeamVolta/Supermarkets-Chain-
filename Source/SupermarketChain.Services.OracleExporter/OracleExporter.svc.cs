@@ -33,10 +33,15 @@
         public string GetReportsAll()
         {
             List<DateTime?> distinctDates = this.products.All().Select(p => DbFunctions.TruncateTime(p.CreatedOn)).Distinct().ToList();
+            ReportFactory reportFactory = new ReportFactory();
+            ICollection<ProductReport> reports = new List<ProductReport>();
             foreach(DateTime? date in distinctDates)
             {
-                IEnumerable<VendorProducts> productsReport = this.GetReportDataByDate((DateTime)date);
+                IEnumerable<VendorProducts> productsData = this.GetReportDataByDate((DateTime)date);
+                ProductReport report = reportFactory.CreateReport(productsData);
+                reports.Add(report);
             }
+            // zip reports and return them
             throw new System.NotImplementedException();
         }
 
