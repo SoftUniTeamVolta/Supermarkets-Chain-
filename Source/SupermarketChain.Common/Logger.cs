@@ -16,6 +16,7 @@
 
         static Logger()
         {
+            ValidateDirectory();
             string userDefinedName = ConfigUtils.GetAppSetting("LogName");
             if (userDefinedName != string.Empty)
             {
@@ -108,6 +109,14 @@
         private void SaveLogMessage(string msg)
         {
             File.AppendAllText(Logger.DefaultLogPath, msg);
+        }
+
+        private static void ValidateDirectory()
+        {
+            if (Directory.Exists("logs"))
+            {
+                Directory.CreateDirectory("logs");
+            }
         }
     }
 }

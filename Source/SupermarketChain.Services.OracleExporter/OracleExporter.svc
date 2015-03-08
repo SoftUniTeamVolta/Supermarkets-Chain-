@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="SupermaketChain.Services.OracleExporter.OracleExporter" CodeBehind="OracleExporter.svc.cs" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="SupermarketChain.Services.OracleExporter.OracleExporter" CodeBehind="OracleExporter.svc.cs" Factory="SupermarketChain.Services.OracleExporter.WcfServiceFactory" %>

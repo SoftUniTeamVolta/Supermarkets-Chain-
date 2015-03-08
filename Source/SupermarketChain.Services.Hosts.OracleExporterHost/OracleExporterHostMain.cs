@@ -4,7 +4,7 @@
     using System.Linq;
     using System.ServiceModel;
 
-    using SupermaketChain.Services.OracleExporter;
+    using SupermarketChain.Services.OracleExporter;
     using SupermarketChain.Common;
 
     public static class OracleExporterHostMain
