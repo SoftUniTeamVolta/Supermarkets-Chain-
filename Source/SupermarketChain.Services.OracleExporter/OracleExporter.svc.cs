@@ -30,12 +30,17 @@
         }
 
 
-        public string GetReportAll()
+        public string GetReportsAll()
         {
+            List<DateTime?> distinctDates = this.products.All().Select(p => DbFunctions.TruncateTime(p.CreatedOn)).Distinct().ToList();
+            foreach(DateTime? date in distinctDates)
+            {
+                IEnumerable<VendorProducts> productsReport = this.GetReportDataByDate((DateTime)date);
+            }
             throw new System.NotImplementedException();
         }
 
-        public string GetReportByDate(DateTime date)
+        private IEnumerable<VendorProducts> GetReportDataByDate(DateTime date)
         {
             var productsByDate = this.products.All().Where(p => DbFunctions.TruncateTime(p.CreatedOn) == date);
             var vendorNames = productsByDate.Select(p => p.Vendor.Name).ToList().Distinct();
@@ -49,7 +54,8 @@
                         Quantity = productsByDate.Count(pd => pd.Name == p.Name),
                     }).ToList(),
                 });
-            throw new NotImplementedException();
+
+            return vendorProducts;
         }
     }
 }

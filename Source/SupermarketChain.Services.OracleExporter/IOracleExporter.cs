@@ -10,9 +10,6 @@
         string Test();
 
         [OperationContract]
-        string GetReportAll();
-
-        [OperationContract]
-        string GetReportByDate(DateTime date);
+        string GetReportsAll();
     }
 }
