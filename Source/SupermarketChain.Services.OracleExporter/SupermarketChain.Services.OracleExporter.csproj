@@ -89,6 +89,8 @@
     <Compile Include="IOracleExporter.cs" />
     <Compile Include="ProductReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportDocumentGenerator.cs" />
+    <Compile Include="ReportDocumentsZiper.cs" />
     <Compile Include="ReportFactory.cs" />
   </ItemGroup>
   <ItemGroup>

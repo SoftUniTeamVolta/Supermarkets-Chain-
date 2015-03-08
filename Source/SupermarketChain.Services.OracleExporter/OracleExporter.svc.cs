@@ -30,7 +30,7 @@
         }
 
 
-        public string GetReportsAll()
+        public object GetReportsAll()
         {
             List<DateTime?> distinctDates = this.products.All().Select(p => DbFunctions.TruncateTime(p.CreatedOn)).Distinct().ToList();
             ReportFactory reportFactory = new ReportFactory();
@@ -41,8 +41,8 @@
                 ProductReport report = reportFactory.CreateReport(productsData);
                 reports.Add(report);
             }
-            // zip reports and return them
-            throw new System.NotImplementedException();
+
+            return this.ZipGeneratedReports(reports);
         }
 
         private IEnumerable<VendorProducts> GetReportDataByDate(DateTime date)
@@ -61,6 +61,18 @@
                 });
 
             return vendorProducts;
+        }
+
+        private object ZipGeneratedReports(ICollection<ProductReport> reports)
+        {
+            using(ReportDocumentsZiper ziper = new ReportDocumentsZiper())
+            {
+                ziper.CreateTempFileStructure();
+                ziper.InsertReports(reports);
+                ziper.ZipInsertedFiles();
+
+                return ziper.GetZipedReports();
+            }
         }
     }
 }

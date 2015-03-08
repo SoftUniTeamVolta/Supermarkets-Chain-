@@ -10,6 +10,6 @@
         string Test();
 
         [OperationContract]
-        string GetReportsAll();
+        object GetReportsAll();
     }
 }

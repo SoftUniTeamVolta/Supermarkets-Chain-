@@ -1,15 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SupermarketChain.Services.OracleExporter
+﻿namespace SupermarketChain.Services.OracleExporter
 {
-    class ReportFactory
+    using SupermarketChain.Data.Common;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public class ReportFactory
     {
-        internal ProductReport CreateReport(IEnumerable<Data.Common.VendorProducts> productsReport)
+        internal ProductReport CreateReport(IEnumerable<VendorProducts> productsReportData)
         {
-            throw new NotImplementedException();
+            if(productsReportData == null)
+            {
+                throw new ArgumentNullException("productsReportData");
+            }
+
+            ProductReport report = new ProductReport();
+            report.Name = productsReportData.First().VendorName;
+            report.FileStream = ReportDocumentGenerator.GenerateReportDocument(productsReportData);
+
+            return report;
         }
     }
 }
