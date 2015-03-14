@@ -7,10 +7,10 @@
     public interface IDeletableEntity
     {
         [Editable(false)]
-        [DataType(DataType.DateTime)]
         bool IsDeleted { get; set; }
 
         [Editable(false)]
+        [DataType(DataType.DateTime)]
         DateTime? DeletedOn { get; set; }
     }
 }

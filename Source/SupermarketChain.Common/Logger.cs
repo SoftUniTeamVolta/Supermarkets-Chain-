@@ -18,7 +18,7 @@
         {
             ValidateDirectory();
             string userDefinedName = ConfigUtils.GetAppSetting("LogName");
-            if (userDefinedName != string.Empty)
+            if (!string.IsNullOrEmpty(userDefinedName))
             {
                 Logger.DefaultLogPath = string.Format("./logs/{0}.{1}.log", DateTime.Now.ToShortDateString(), userDefinedName);
             }
