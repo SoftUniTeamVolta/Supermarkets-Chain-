@@ -4,16 +4,15 @@
     using System.Data.Entity;
     using System.Linq;
     using Contracts.Interfaces;
-    using Migrations;
-    using Models;
+    using Migrations.SQLServer;
     using Models.SQLServerModels;
 
-    public class MSDataContext : DbContext, IDataContext
+    public class MsDataContext : DbContext, IDataContext
     {
-        public MSDataContext()
+        public MsDataContext()
             : base("SQLServerDb")
         {
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataContext, Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MsDataContext, Configuration>());
         }
 
 
@@ -23,9 +22,14 @@
 
         public IDbSet<Measure> Measures { get; set; }
 
-        public static MSDataContext Create()
+        public static MsDataContext Create()
         {
-            return new MSDataContext();
+            return new MsDataContext();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultSchema("SupermarketChain");
         }
 
         public override int SaveChanges()
@@ -45,12 +49,13 @@
         {
             // Approach via @julielerman: http://bit.ly/123661P
             foreach (var entry in
-                this.ChangeTracker.Entries()
-                    .Where(
-                        e =>
-                        e.Entity is IAuditInfo && ((e.State == EntityState.Added) || (e.State == EntityState.Modified))))
+                ChangeTracker.Entries()
+                             .Where(
+                                 e =>
+                                     e.Entity is IAuditInfo &&
+                                     ((e.State == EntityState.Added) || (e.State == EntityState.Modified))))
             {
-                var entity = (IAuditInfo)entry.Entity;
+                var entity = (IAuditInfo) entry.Entity;
 
                 if (entry.State == EntityState.Added)
                 {
@@ -71,10 +76,10 @@
             // Approach via @julielerman: http://bit.ly/123661P
             foreach (
                 var entry in
-                    this.ChangeTracker.Entries()
-                        .Where(e => e.Entity is IDeletableEntity && (e.State == EntityState.Deleted)))
+                    ChangeTracker.Entries()
+                                 .Where(e => e.Entity is IDeletableEntity && (e.State == EntityState.Deleted)))
             {
-                var entity = (IDeletableEntity)entry.Entity;
+                var entity = (IDeletableEntity) entry.Entity;
 
                 entity.DeletedOn = DateTime.Now;
                 entity.IsDeleted = true;

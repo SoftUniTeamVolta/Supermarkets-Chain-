@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hosts", "Hosts", "{ED31FA6B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupermarketChain.Services.Hosts.OracleExporterHost", "SupermarketChain.Services.Hosts.OracleExporterHost\SupermarketChain.Services.Hosts.OracleExporterHost.csproj", "{024A1E2D-C20F-40EE-9AF2-34CEF7C0F88C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupermarketChain.Client", "SupermarketChain.Client\SupermarketChain.Client.csproj", "{3E85B3EF-4A3D-4EAC-B4CD-CA1B748DE024}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,10 @@ Global
 		{024A1E2D-C20F-40EE-9AF2-34CEF7C0F88C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{024A1E2D-C20F-40EE-9AF2-34CEF7C0F88C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{024A1E2D-C20F-40EE-9AF2-34CEF7C0F88C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E85B3EF-4A3D-4EAC-B4CD-CA1B748DE024}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E85B3EF-4A3D-4EAC-B4CD-CA1B748DE024}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E85B3EF-4A3D-4EAC-B4CD-CA1B748DE024}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E85B3EF-4A3D-4EAC-B4CD-CA1B748DE024}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +84,7 @@ Global
 		{D5A57E56-E0DC-4753-9174-08A31E19BEB8} = {394BE658-ADC8-4021-85BA-E1D0F4FF3655}
 		{ED31FA6B-2657-48B7-AC9D-27D54243EED3} = {394BE658-ADC8-4021-85BA-E1D0F4FF3655}
 		{024A1E2D-C20F-40EE-9AF2-34CEF7C0F88C} = {ED31FA6B-2657-48B7-AC9D-27D54243EED3}
+		{3E85B3EF-4A3D-4EAC-B4CD-CA1B748DE024} = {77D0F64F-8E00-478D-A8EC-1467D6D6FD5B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35

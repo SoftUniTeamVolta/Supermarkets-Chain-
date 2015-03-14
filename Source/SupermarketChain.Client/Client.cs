@@ -3,9 +3,10 @@
     using System;
     using System.Data.Entity;
     using Data.DataContext;
-    using Data.DataContext.Migrations;
+    using Data.DataContext.Migrations.Oracle;
     using Data.DataContext.Repositories;
     using Data.Models.OracleXEModels;
+    using Data.Models.SQLServerModels;
 
     public class Client
     {
@@ -15,8 +16,8 @@
             while (!quit)
             {
                 Console.WriteLine(@"Please choose an option to execute:
-Press 1 to create and seed data to OracleDb.
-Press 2 to work with MS SQL Server DB SupermarketChain.
+Press 1 to work with Oracle Db SupermarketChain.
+Press 2 to work with MS SQL Server Db SupermarketChain.
 Prezz q to quit the application.");
 
                 var userInput = Convert.ToString(Console.ReadLine()).Trim();
@@ -24,9 +25,10 @@ Prezz q to quit the application.");
                 switch (userInput)
                 {
                     case "1":
-                        Client.OracleDbType();
+                        Client.OracleDb();
                         break;
                     case "2":
+                        Client.SqlServerDb();
                         break;
                     case "q":
                         quit = true;
@@ -41,12 +43,35 @@ Prezz q to quit the application.");
             }
         }
 
-        private static void OracleDbType()
+        private static void SqlServerDb()
         {
             try
             {
-                Database.SetInitializer(new CreateDatabaseIfNotExists<OracleDataContext>());
-                using (var oracleContext = new OracleDataContext())
+                using (var sqlServerContext = MsDataContext.Create())
+                {
+                    var measures = new GenericRepository<Measure>(sqlServerContext);
+
+                    var listMeasures = measures.GetAll();
+
+                    foreach (var v in listMeasures)
+                    {
+                        Console.WriteLine(v.Name);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
+
+        private static void OracleDb()
+        {
+            try
+            {
+                Database.SetInitializer(new MigrateDatabaseToLatestVersion<OracleDataContext, Configuration>());
+                using (var oracleContext = OracleDataContext.Create())
                 {
                    
 
@@ -94,7 +119,7 @@ END;";
 
                     oracleContext.SaveChanges();
 
-                    OracleManualMigration.Seeder(oracleContext);
+                    //OracleManualMigration.Seeder(oracleContext);
 
                     var measures = new GenericRepository<MEASURES>(oracleContext);
 

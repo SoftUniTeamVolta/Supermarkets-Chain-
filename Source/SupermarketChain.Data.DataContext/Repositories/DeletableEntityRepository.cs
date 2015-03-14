@@ -1,8 +1,8 @@
 ﻿namespace SupermarketChain.Data.DataContext.Repositories
 {
+    using System.Collections.Generic;
     using System.Linq;
-
-    using SupermarketChain.Data.Contracts.Interfaces;
+    using Contracts.Interfaces;
 
     public class DeletableEntityRepository<T> : GenericRepository<T>, IDeletableEntityRepository<T>, IAuditInfoEntityRepository<T>
         where T : class, IDeletableEntity, IAuditInfo
@@ -13,14 +13,14 @@
 
         }
 
-        public override IQueryable<T> All()
+        public override IEnumerable<T> GetAll()
         {
-            return base.All().Where(e => !e.IsDeleted);
+            return base.GetAll().Where(e => !e.IsDeleted);
         }
 
-        public IQueryable<T> AllWithDeleted()
+        public IEnumerable<T> AllWithDeleted()
         {
-            return base.All();
+            return base.GetAll();
         }
     }
 }

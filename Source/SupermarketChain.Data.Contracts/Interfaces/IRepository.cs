@@ -1,11 +1,15 @@
 ﻿namespace SupermarketChain.Data.Contracts.Interfaces
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
 
     public interface IRepository<T> : IDisposable where T : class
     {
-        IQueryable<T> All();
+        IEnumerable<T> GetAll();
+
+        IEnumerable<T> Find(Expression<Func<T, bool>> expression);
 
         T GetById(int id);
 

@@ -1,9 +1,9 @@
 ﻿namespace SupermarketChain.Data.Contracts.Interfaces
 {
-    using System.Linq;
+    using System.Collections.Generic;
 
     public interface IDeletableEntityRepository<T> : IRepository<T> where T : class
     {
-        IQueryable<T> AllWithDeleted();
+        IEnumerable<T> AllWithDeleted();
     }
 }

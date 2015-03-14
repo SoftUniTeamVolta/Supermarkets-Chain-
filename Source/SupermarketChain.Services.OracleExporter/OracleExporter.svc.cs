@@ -8,13 +8,14 @@
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
+    using Data.Models.SQLServerModels;
 
     public class OracleExporter : IOracleExporter
     {
         private DeletableEntityRepository<Product> products;
 
         public OracleExporter()
-            : this(new DeletableEntityRepository<Product>(new DataContext()))
+            : this(new DeletableEntityRepository<Product>(new MsDataContext()))
         {
             // Poor man DI :(
         }
@@ -32,7 +33,7 @@
 
         public object GetReportsAll()
         {
-            List<DateTime?> distinctDates = this.products.All().Select(p => DbFunctions.TruncateTime(p.CreatedOn)).Distinct().ToList();
+            List<DateTime?> distinctDates = this.products.GetAll().Select(p => DbFunctions.TruncateTime(p.CreatedOn)).Distinct().ToList();
             ReportFactory reportFactory = new ReportFactory();
             ICollection<ProductReport> reports = new List<ProductReport>();
             foreach(DateTime? date in distinctDates)
@@ -47,7 +48,7 @@
 
         private IEnumerable<VendorProducts> GetReportDataByDate(DateTime date)
         {
-            var productsByDate = this.products.All().Where(p => DbFunctions.TruncateTime(p.CreatedOn) == date);
+            var productsByDate = this.products.GetAll().Where(p => DbFunctions.TruncateTime(p.CreatedOn) == date);
             var vendorNames = productsByDate.Select(p => p.Vendor.Name).ToList().Distinct();
             IEnumerable<VendorProducts> vendorProducts = vendorNames.Select(v => new VendorProducts
                 {

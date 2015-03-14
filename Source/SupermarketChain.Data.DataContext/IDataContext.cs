@@ -5,15 +5,20 @@
     using System.Data.Entity.Infrastructure;
 
     using Models;
+    using Models.SQLServerModels;
 
     public interface IDataContext : IDisposable
     {
-        DbSet<Product> Products { get; set; }
-        DbSet<Vendor> Vendors { get; set; }
-        DbSet<Measure> Measures { get; set; }
+        IDbSet<Product> Products { get; set; }
+
+        IDbSet<Vendor> Vendors { get; set; }
+
+        IDbSet<Measure> Measures { get; set; }
 
         int SaveChanges();
+
         DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
+
         IDbSet<T> Set<T>() where T : class;
     }
 }
