@@ -5,14 +5,14 @@
     using System.Linq;
     using Contracts.Interfaces;
     using Models.OracleXEModels;
-    using Models.SQLServerModels;
+    using Migrations.Oracle;
 
     public class OracleDataContext : DbContext
     {
         public OracleDataContext()
             : base("name=OracleDb")
         {
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataContext, Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<OracleDataContext, Configuration>());
         }
 
 

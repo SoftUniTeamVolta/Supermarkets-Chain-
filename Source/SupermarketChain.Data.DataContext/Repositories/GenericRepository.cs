@@ -6,6 +6,7 @@
     using System.Data.Entity.Infrastructure;
     using System.Linq;
     using Contracts.Interfaces;
+    using Models.OracleXEModels;
 
     public class GenericRepository<T> : IRepository<T> where T : class
     {
@@ -67,7 +68,17 @@
 
         public virtual void Add(T entity)
         {
-            DbEntityEntry entry = this.MsContext.Entry(entity);
+            dynamic context;
+            if (entity is VENDORS || entity is MEASURES || entity is PRODUCTS)
+            {
+                context = this.OracleContext;
+            }
+            else
+            {
+                context = this.MsContext;
+            }
+
+            DbEntityEntry entry = context.Entry(entity);
             if (entry.State != EntityState.Detached)
             {
                 entry.State = EntityState.Added;
@@ -75,12 +86,22 @@
             else
             {
                 this.DbSet.Add(entity);
-            }
+            } 
         }
 
         public virtual void Update(T entity)
         {
-            DbEntityEntry entry = this.MsContext.Entry(entity);
+            dynamic context;
+            if (entity is VENDORS || entity is MEASURES || entity is PRODUCTS)
+            {
+                context = this.OracleContext;
+            }
+            else
+            {
+                context = this.MsContext;
+            }
+
+            DbEntityEntry entry = context.Entry(entity);
             if (entry.State == EntityState.Detached)
             {
                 this.DbSet.Attach(entity);
@@ -91,7 +112,17 @@
 
         public virtual void Delete(T entity)
         {
-            DbEntityEntry entry = this.MsContext.Entry(entity);
+            dynamic context;
+            if (entity is VENDORS || entity is MEASURES || entity is PRODUCTS)
+            {
+                context = this.OracleContext;
+            }
+            else
+            {
+                context = this.MsContext;
+            }
+
+            DbEntityEntry entry = context.Entry(entity);
             if (entry.State != EntityState.Deleted)
             {
                 entry.State = EntityState.Deleted;
@@ -115,19 +146,43 @@
 
         public virtual void Detach(T entity)
         {
-            DbEntityEntry entry = this.MsContext.Entry(entity);
+            dynamic context;
+            if (entity is VENDORS || entity is MEASURES || entity is PRODUCTS)
+            {
+                context = this.OracleContext;
+            }
+            else
+            {
+                context = this.MsContext;
+            }
 
+            DbEntityEntry entry = context.Entry(entity);
             entry.State = EntityState.Detached;
         }
 
         public int SaveChanges()
         {
-            return this.MsContext.SaveChanges();
+            if (this.OracleContext == null)
+            {
+                return this.MsContext.SaveChanges();
+            }
+
+            return this.OracleContext.SaveChanges();
         }
 
         public void Dispose()
         {
-            this.MsContext.Dispose();
+            if (this.OracleContext == null)
+            {
+                this.MsContext.Dispose();
+            }
+
+            this.OracleContext.Dispose();
+        }
+
+        public virtual T GetLatestEntry()
+        {
+            return this.DbSet.ToList().LastOrDefault();
         }
     }
 }

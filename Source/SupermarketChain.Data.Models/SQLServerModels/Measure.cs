@@ -15,8 +15,5 @@
         [Required]
         [StringLength(25, MinimumLength = 1)]
         public string Abbreviation { get; set; }
-
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
     }
 }

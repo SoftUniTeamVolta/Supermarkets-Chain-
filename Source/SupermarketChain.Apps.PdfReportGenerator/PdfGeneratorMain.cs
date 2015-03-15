@@ -29,11 +29,11 @@
             DateTime startDate;
             DateTime endDate;
 
-            ValidateInputArguments(args, out startDate, out endDate);
+            PdfGeneratorMain.ValidateInputArguments(args, out startDate, out endDate);
 
             ICollection<Product> data = new List<Product>();
 
-            Document pdfReport = GeneratePdfReport(data, startDate, endDate);
+            Document pdfReport = PdfGeneratorMain.GeneratePdfReport(data, startDate, endDate);
         }
 
         private static void ValidateInputArguments(string[] args, out DateTime startDate, out DateTime endDate)

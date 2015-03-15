@@ -20,9 +20,6 @@
         [StringLength(250, MinimumLength = 5)]
         public string Name { get; set; }
 
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
-
         public virtual ICollection<Product> Products
         {
             get { return this.products; }

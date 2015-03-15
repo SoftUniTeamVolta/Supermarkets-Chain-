@@ -27,11 +27,5 @@
         [Required]
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
-
-        [DataType(DataType.DateTime)]
-        public DateTime Date { get; set; }
-
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
     }
 }

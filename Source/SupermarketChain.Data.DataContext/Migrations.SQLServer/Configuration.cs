@@ -7,11 +7,12 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
     using System.Linq;
     using Models.SQLServerModels;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<SupermarketChain.Data.DataContext.MsDataContext>
+    public sealed class Configuration : DbMigrationsConfiguration<SupermarketChain.Data.DataContext.MsDataContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
             MigrationsDirectory = @"Migrations.SQLServer";
         }
 
@@ -27,7 +28,7 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
                 Configuration.AddVendorTestData(context);
             }
 
-            if (!context.Vendors.Any())
+            if (!context.Products.Any())
             {
                 Configuration.AddProductTestData(context);
             }
@@ -66,7 +67,7 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
         private static void AddProductTestData(MsDataContext context)
         {
             var vendor = context.Vendors.FirstOrDefault(v => v.Name == "Zagorka SA");
-            var measure = context.Vendors.FirstOrDefault(m => m.Name == "liter");
+            var measure = context.Measures.FirstOrDefault(m => m.Name == "liter");
             var products = new List<Product>
             {
                 new Product {VendorId = vendor.Id, Name = "Beer \"Zagorka\"", MeasureId = measure.Id}

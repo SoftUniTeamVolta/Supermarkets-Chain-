@@ -10,7 +10,7 @@
     public class MsDataContext : DbContext, IDataContext
     {
         public MsDataContext()
-            : base("SQLServerDb")
+            : base("SupermarketChain")
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<MsDataContext, Configuration>());
         }

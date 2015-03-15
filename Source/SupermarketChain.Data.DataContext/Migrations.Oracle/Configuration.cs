@@ -34,6 +34,19 @@ namespace SupermarketChain.Data.DataContext.Migrations.Oracle
 
         private static void AddVendorTestData(OracleDataContext context)
         {
+            string createSequenceVendorTable =
+                @"CREATE SEQUENCE VEND_SEQ MINVALUE 10 MAXVALUE 9999999999999999999999999999 INCREMENT BY 10;
+create or replace TRIGGER VEND_BIR
+BEFORE INSERT ON VENDORS
+FOR EACH ROW
+BEGIN
+SELECT VEND_SEQ.NEXTVAL
+INTO :new.id
+FROM dual;
+END;
+";
+
+            context.Database.SqlQuery<VENDORS>(createSequenceVendorTable);
             var vendors = new List<VENDORS>
             {
                 new VENDORS {NAME = "Zagorka SA"},
@@ -49,6 +62,17 @@ namespace SupermarketChain.Data.DataContext.Migrations.Oracle
 
         private static void AddMeasureTestData(OracleDataContext context)
         {
+            string createSequenceMeasureTable = @"CREATE SEQUENCE MES_SEQ MINVALUE 100 MAXVALUE 9999999999999999999999999999 INCREMENT BY 100;
+create or replace TRIGGER MES_BIR
+BEFORE INSERT ON MEASURES
+FOR EACH ROW
+BEGIN
+SELECT MES_SEQ.NEXTVAL
+INTO :new.id
+FROM dual;
+END;";
+
+            context.Database.SqlQuery<MEASURES>(createSequenceMeasureTable);
             var measures = new List<MEASURES>
             {
                 new MEASURES {NAME = "milliliter", ABBREVIATION = "ml"},
@@ -64,6 +88,16 @@ namespace SupermarketChain.Data.DataContext.Migrations.Oracle
 
         private static void AddProductTestData(OracleDataContext context)
         {
+            string createSequenceProductTable = @"CREATE SEQUENCE PROD_SEQ;
+CREATE OR REPLACE TRIGGER PROD_BIR
+BEFORE INSERT ON PRODUCTS
+FOR EACH ROW
+BEGIN
+SELECT PROD_SEQ.NEXTVAL
+INTO :new.id
+FROM dual;
+END;";
+            context.Database.SqlQuery<PRODUCTS>(createSequenceProductTable);
             var vendor = context.VENDORS.FirstOrDefault(v => v.NAME == "Zagorka SA");
             var measure = context.MEASURES.FirstOrDefault(m => m.NAME == "liter");
             var products = new List<PRODUCTS>
