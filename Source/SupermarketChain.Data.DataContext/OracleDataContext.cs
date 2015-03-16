@@ -15,6 +15,9 @@
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<OracleDataContext, Configuration>());
         }
 
+        public IDbSet<SUPERMARKET> Supermarkets { get; set; }
+
+        public IDbSet<SALE> Sales { get; set; }
 
         public IDbSet<PRODUCT> PRODUCTS { get; set; }
 
