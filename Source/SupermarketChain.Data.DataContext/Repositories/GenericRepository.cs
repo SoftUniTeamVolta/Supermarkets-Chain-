@@ -69,7 +69,7 @@
         public virtual void Add(T entity)
         {
             dynamic context;
-            if (entity is VENDORS || entity is MEASURES || entity is PRODUCTS)
+            if (entity is VENDOR || entity is MEASURE || entity is PRODUCT)
             {
                 context = this.OracleContext;
             }
@@ -92,7 +92,7 @@
         public virtual void Update(T entity)
         {
             dynamic context;
-            if (entity is VENDORS || entity is MEASURES || entity is PRODUCTS)
+            if (entity is VENDOR || entity is MEASURE || entity is PRODUCT)
             {
                 context = this.OracleContext;
             }
@@ -113,7 +113,7 @@
         public virtual void Delete(T entity)
         {
             dynamic context;
-            if (entity is VENDORS || entity is MEASURES || entity is PRODUCTS)
+            if (entity is VENDOR || entity is MEASURE || entity is PRODUCT)
             {
                 context = this.OracleContext;
             }
@@ -147,7 +147,7 @@
         public virtual void Detach(T entity)
         {
             dynamic context;
-            if (entity is VENDORS || entity is MEASURES || entity is PRODUCTS)
+            if (entity is VENDOR || entity is MEASURE || entity is PRODUCT)
             {
                 context = this.OracleContext;
             }

@@ -1,9 +1,11 @@
 ﻿namespace SupermarketChain.Data.Models.OracleXEModels
 {
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using Contracts;
 
-    public class MEASURES : DeletableEntity
+    [Table("ADMIN.MEASURES")]
+    public class MEASURE : DeletableEntity
     {
         [Key]
         public int ID { get; set; }

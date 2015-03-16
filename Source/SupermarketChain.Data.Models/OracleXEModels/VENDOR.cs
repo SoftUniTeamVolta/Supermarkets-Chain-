@@ -2,15 +2,17 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using Contracts;
 
-    public class VENDORS : DeletableEntity
+    [Table("ADMIN.VENDORS")]
+    public class VENDOR : DeletableEntity
     {
-        private ICollection<PRODUCTS> products;
+        private ICollection<PRODUCT> products;
 
-        public VENDORS()
+        public VENDOR()
         {
-            this.products = new HashSet<PRODUCTS>();
+            this.products = new HashSet<PRODUCT>();
         }
 
         [Key]
@@ -20,7 +22,7 @@
         [StringLength(250, MinimumLength = 5)]
         public string NAME { get; set; }
 
-        public virtual ICollection<PRODUCTS> Products
+        public virtual ICollection<PRODUCT> Products
         {
             get { return this.products; }
             set { this.products = value; }

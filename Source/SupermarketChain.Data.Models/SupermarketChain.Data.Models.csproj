@@ -40,9 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OracleXEModels\MEASURES.cs" />
-    <Compile Include="OracleXEModels\PRODUCTS.cs" />
-    <Compile Include="OracleXEModels\VENDORS.cs" />
+    <Compile Include="OracleXEModels\MEASURE.cs" />
+    <Compile Include="OracleXEModels\PRODUCT.cs" />
+    <Compile Include="OracleXEModels\VENDOR.cs" />
     <Compile Include="SQLServerModels\Measure.cs" />
     <Compile Include="SQLServerModels\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

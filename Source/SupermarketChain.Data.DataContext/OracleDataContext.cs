@@ -16,11 +16,11 @@
         }
 
 
-        public IDbSet<PRODUCTS> PRODUCTS { get; set; }
+        public IDbSet<PRODUCT> PRODUCTS { get; set; }
 
-        public IDbSet<VENDORS> VENDORS { get; set; }
+        public IDbSet<VENDOR> VENDORS { get; set; }
 
-        public IDbSet<MEASURES> MEASURES { get; set; }
+        public IDbSet<MEASURE> MEASURES { get; set; }
 
         public static OracleDataContext Create()
         {

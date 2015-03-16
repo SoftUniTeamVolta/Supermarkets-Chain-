@@ -20,9 +20,9 @@
                 {
                     using (var oracleContext = new OracleDataContext())
                     {
-                        var oracleMeasures = new GenericRepository<MEASURES>(oracleContext);
-                        var oracleVendors = new GenericRepository<VENDORS>(oracleContext);
-                        var oracleProducts = new GenericRepository<PRODUCTS>(oracleContext);
+                        var oracleMeasures = new GenericRepository<MEASURE>(oracleContext);
+                        var oracleVendors = new GenericRepository<VENDOR>(oracleContext);
+                        var oracleProducts = new GenericRepository<PRODUCT>(oracleContext);
 
                         var sqlMeasures = new GenericRepository<Measure>(sqlServerContext);
                         var sqlVendors = new GenericRepository<Vendor>(sqlServerContext);
@@ -53,7 +53,7 @@
             }
         }
 
-        private static void CheckAndPopulateProductsCount(GenericRepository<PRODUCTS> oracleEntity
+        private static void CheckAndPopulateProductsCount(GenericRepository<PRODUCT> oracleEntity
                                                           , GenericRepository<Product> sqlEntity
             )
         {
@@ -76,7 +76,7 @@
             }
         }
 
-        private static void CheckAndPopulateMeasuresCount(GenericRepository<MEASURES> oracleEntity,
+        private static void CheckAndPopulateMeasuresCount(GenericRepository<MEASURE> oracleEntity,
                                                           GenericRepository<Measure> sqlEntity)
         {
             if (oracleEntity.GetAll().Count() != sqlEntity.GetAll().Count())
@@ -97,7 +97,7 @@
             }
         }
 
-        private static void CheckAndPopulateVendorsCount(GenericRepository<VENDORS> oracleEntity,
+        private static void CheckAndPopulateVendorsCount(GenericRepository<VENDOR> oracleEntity,
                                                          GenericRepository<Vendor> sqlEntity)
         {
             if (oracleEntity.GetAll().Count() != sqlEntity.GetAll().Count())
@@ -117,14 +117,14 @@
             }
         }
 
-        public static void OracleDb()
+        public static void CreateOracleDb()
         {
             try
             {
                 //Database.SetInitializer(new MigrateDatabaseToLatestVersion<OracleDataContext, Configuration>());
                 using (var oracleContext = new OracleDataContext())
                 {
-                    var oracleVendors = new GenericRepository<VENDORS>(oracleContext);
+                    var oracleVendors = new GenericRepository<VENDOR>(oracleContext);
                     //var measures = new GenericRepository<MEASURES>(oracleContext);
 
                     //var listMeasures = measures.GetAll();
@@ -144,6 +144,24 @@
             }
             catch (Exception)
             {
+                throw;
+            }
+        }
+
+        public static void CreateSQLDb()
+        {
+            try
+            {
+                using (var context = new MsDataContext())
+                {
+                    context.SaveChanges();
+                    Console.WriteLine("SQL Server database generated!");
+                }
+
+            }
+            catch (Exception)
+            {
+                
                 throw;
             }
         }

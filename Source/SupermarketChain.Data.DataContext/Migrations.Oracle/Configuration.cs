@@ -46,14 +46,14 @@ FROM dual;
 END;
 ";
 
-            context.Database.SqlQuery<VENDORS>(createSequenceVendorTable);
-            var vendors = new List<VENDORS>
+            context.Database.SqlQuery<VENDOR>(createSequenceVendorTable);
+            var vendors = new List<VENDOR>
             {
-                new VENDORS {NAME = "Zagorka SA"},
-                new VENDORS {NAME = "Kamenitza SA"},
-                new VENDORS {NAME = "Bio Bulgaria Ltd."},
-                new VENDORS {NAME = "Mondelez Bulgaria Ltd."},
-                new VENDORS {NAME = "Intersnack Bulgaria Ltd."}
+                new VENDOR {NAME = "Zagorka SA"},
+                new VENDOR {NAME = "Kamenitza SA"},
+                new VENDOR {NAME = "Bio Bulgaria Ltd."},
+                new VENDOR {NAME = "Mondelez Bulgaria Ltd."},
+                new VENDOR {NAME = "Intersnack Bulgaria Ltd."}
             };
 
             vendors.ForEach(v => context.VENDORS.Add(v));
@@ -72,14 +72,14 @@ INTO :new.id
 FROM dual;
 END;";
 
-            context.Database.SqlQuery<MEASURES>(createSequenceMeasureTable);
-            var measures = new List<MEASURES>
+            context.Database.SqlQuery<MEASURE>(createSequenceMeasureTable);
+            var measures = new List<MEASURE>
             {
-                new MEASURES {NAME = "milliliter", ABBREVIATION = "ml"},
-                new MEASURES {NAME = "liter", ABBREVIATION = "l"},
-                new MEASURES {NAME = "gram", ABBREVIATION = "gr"},
-                new MEASURES {NAME = "kilogram", ABBREVIATION = "kg"},
-                new MEASURES {NAME = "piece", ABBREVIATION = "pc"}
+                new MEASURE {NAME = "milliliter", ABBREVIATION = "ml"},
+                new MEASURE {NAME = "liter", ABBREVIATION = "l"},
+                new MEASURE {NAME = "gram", ABBREVIATION = "gr"},
+                new MEASURE {NAME = "kilogram", ABBREVIATION = "kg"},
+                new MEASURE {NAME = "piece", ABBREVIATION = "pc"}
             };
 
             measures.ForEach(m => context.MEASURES.Add(m));
@@ -97,12 +97,12 @@ SELECT PROD_SEQ.NEXTVAL
 INTO :new.id
 FROM dual;
 END;";
-            context.Database.SqlQuery<PRODUCTS>(createSequenceProductTable);
+            context.Database.SqlQuery<PRODUCT>(createSequenceProductTable);
             var vendor = context.VENDORS.FirstOrDefault(v => v.NAME == "Zagorka SA");
             var measure = context.MEASURES.FirstOrDefault(m => m.NAME == "liter");
-            var products = new List<PRODUCTS>
+            var products = new List<PRODUCT>
             {
-                new PRODUCTS {VENDOR_ID = vendor.ID, NAME = "Beer \"Zagorka\"", MEASURE_ID = measure.ID}
+                new PRODUCT {VENDOR_ID = vendor.ID, NAME = "Beer \"Zagorka\"", MEASURE_ID = measure.ID}
             };
 
             products.ForEach(p => context.PRODUCTS.Add(p));
