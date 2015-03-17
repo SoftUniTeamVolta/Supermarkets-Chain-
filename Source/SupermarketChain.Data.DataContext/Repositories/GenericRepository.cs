@@ -5,7 +5,9 @@
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     using System.Linq;
+
     using Contracts.Interfaces;
+
     using Models.OracleXEModels;
 
     public class GenericRepository<T> : IRepository<T> where T : class

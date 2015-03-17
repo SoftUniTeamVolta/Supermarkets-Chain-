@@ -4,8 +4,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using Contracts.Interfaces;
     using System;
-    using Contracts;
-    using SQLServerModels;
+
 
     [Table("ADMIN.SALES")]
     public class SALE : IDeletableEntity, IAuditInfo
@@ -20,7 +19,7 @@
         [Column("PRODUCT_ID")]
         public int ProductId { get; set; }
 
-        public PRODUCT Product { get; set; }
+        public virtual PRODUCT Product { get; set; }
 
         [Required]
         [Range(1, Int32.MaxValue)]
@@ -39,10 +38,10 @@
         }
 
         [Required]
-        [Column("SUPER_MARKET_ID")]
+        [Column("SUPERMARKET_ID")]
         public int SuperMarketId { get; set; }
 
-        public SUPERMARKET SuperMarket { get; set; }
+        public virtual SUPERMARKET SuperMarket { get; set; }
 
         [Column("IS_DELETED")]
         public bool IsDeleted { get; set; }
@@ -58,5 +57,11 @@
 
         [Column("PRESERVE_CREATED_ON")]
         public bool PreserveCreatedOn { get; set; }
+
+        [ForeignKey("Vendor")]
+        [Column("VENDOR_ID")]
+        public int VendorId { get; set; }
+
+        public virtual VENDOR Vendor { get; set; }
     }
 }

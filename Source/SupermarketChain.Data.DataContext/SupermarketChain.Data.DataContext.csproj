@@ -67,9 +67,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations.Oracle\201503171838511_InitialCreate.cs" />
-    <Compile Include="Migrations.Oracle\201503171838511_InitialCreate.Designer.cs">
-      <DependentUpon>201503171838511_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations.Oracle\201503172135564_InitialCreate.cs" />
+    <Compile Include="Migrations.Oracle\201503172135564_InitialCreate.Designer.cs">
+      <DependentUpon>201503172135564_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations.Oracle\Configuration.cs" />
     <Compile Include="Migrations.SQLServer\Configuration.cs" />
@@ -103,8 +103,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations.Oracle\201503171838511_InitialCreate.resx">
-      <DependentUpon>201503171838511_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations.Oracle\201503172135564_InitialCreate.resx">
+      <DependentUpon>201503172135564_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

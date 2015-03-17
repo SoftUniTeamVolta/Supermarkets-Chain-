@@ -4,7 +4,6 @@
     using System.Data.Entity;
     using System.Linq;
     using Contracts.Interfaces;
-    using Migrations.SQLServer;
     using Models.SQLServerModels;
 
     public class MsDataContext : DbContext, IDataContext

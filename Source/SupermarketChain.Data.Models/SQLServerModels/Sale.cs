@@ -1,4 +1,4 @@
-﻿namespace SupermarketChain.Data.Models.SQLServerModels
+namespace SupermarketChain.Data.Models.SQLServerModels
 {
     using System.ComponentModel.DataAnnotations;
     using System;
@@ -6,7 +6,10 @@
 
     public class Sale : DeletableEntity
     {
-        private decimal sum;
+        public Sale()
+        {
+            this.Sum = this.Quantity*this.UnitPrice;
+        }
 
         [Key]
         public int Id { get; set; }
@@ -14,7 +17,7 @@
         [Required]
         public int ProductId { get; set; }
 
-        public Product Product { get; set; }
+        public virtual Product Product { get; set; }
 
         [Required]
         [Range(1, Int32.MaxValue)]
@@ -23,15 +26,10 @@
         [Required]
         public decimal UnitPrice { get; set; }
 
-        public decimal Sum
-        {
-            get { return this.sum; }
-            private set { this.sum = (this.Quantity * this.UnitPrice); }
-        }
+        public decimal Sum { get; private set; }
 
-        [Required]
-        public int SuperMarketId { get; set; }
+        public virtual SuperMarket SuperMarket { get; set; }
 
-        public SuperMarket SuperMarket { get; set; }
+        public virtual Vendor Vendor { get; set; }
     }
 }

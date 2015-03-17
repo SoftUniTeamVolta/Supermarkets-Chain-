@@ -3,7 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using Contracts;
+
     using Contracts.Interfaces;
 
     [Table("ADMIN.SUPERMARKETS")]
@@ -15,7 +15,7 @@
 
         [Required]
         [StringLength(100, MinimumLength = 3)]
-        [Column("Name")]
+        [Column("NAME")]
         public string Name { get; set; }
 
         [Column("IS_DELETED")]

@@ -4,7 +4,9 @@
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
+
     using AutoMapper;
+
     using Data.DataContext;
     using Data.DataContext.Migrations.Oracle;
     using Data.DataContext.Repositories;
@@ -32,9 +34,11 @@
                         var sqlProducts = new GenericRepository<Product>(sqlServerContext);
 
                         Mapper.CreateMap<VENDOR, Vendor>()
-                                .ForMember(v => v.Products, opt => opt.MapFrom(p => p.Products));
+                                .ForMember(v => v.Products, opt => opt.MapFrom(p => p.Products))
+                                .ForMember(v => v.Sales, opt => opt.MapFrom(s => s.Sales));
                         Mapper.CreateMap<PRODUCT, Product>();
-                                //.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+                        Mapper.CreateMap<SALE, Sale>();
+                        Mapper.CreateMap<SUPERMARKET, SuperMarket>();
                         Mapper.CreateMap<MEASURE, Measure>();
                         Mapper.AssertConfigurationIsValid();
 
@@ -84,12 +88,6 @@
                 foreach (var entity in uniqueOracleProducts)
                 {
                     var product = Mapper.Map<PRODUCT, Product>(entity);
-                    //var product = new Product
-                    //{
-                    //    VendorId = entity.VENDOR_ID,
-                    //    Name = entity.NAME,
-                    //    MeasureId = entity.MEASURE_ID
-                    //};
                     sqlEntity.Add(product);
                 }
 
@@ -117,11 +115,6 @@
                 foreach (var entity in uniqueOracleMeasures)
                 {
                     var measure = Mapper.Map<MEASURE, Measure>(entity);
-                    //var measure = new Measure
-                    //{
-                    //    Name = entity.NAME,
-                    //    Abbreviation = entity.ABBREVIATION
-                    //};
                     sqlEntity.Add(measure);
                 }
 
@@ -151,10 +144,6 @@
                 foreach (var entity in uniqueOracleVendors)
                 {
                     var vendor = Mapper.Map<VENDOR, Vendor>(entity);
-                    //var vendor = new Vendor
-                    //{
-                    //    Name = entity.NAME
-                    //};
                     sqlEntity.Add(vendor);
                 }
 
@@ -167,25 +156,26 @@
             try
             {
                 Database.SetInitializer(new MigrateDatabaseToLatestVersion<OracleDataContext, Configuration>());
+                //Database.SetInitializer(new CreateDatabaseIfNotExists<OracleDataContext>());
                 using (var oracleContext = new OracleDataContext())
                 {
-                    var oracleVendors = new GenericRepository<VENDOR>(oracleContext);
-                    var measures = new GenericRepository<MEASURE>(oracleContext);
+                    //var oracleVendors = new GenericRepository<VENDOR>(oracleContext);
+                    //var measures = new GenericRepository<MEASURE>(oracleContext);
 
-                    var listMeasures = measures.GetAll();
+                    //var listMeasures = measures.GetAll();
 
-                    foreach (var v in listMeasures)
-                    {
-                        Console.WriteLine(v.Name);
-                    }
+                    //foreach (var v in listMeasures)
+                    //{
+                    //    Console.WriteLine(v.Name);
+                    //}
 
-                    var vendor = new VENDOR
-                    {
-                        Name = "PESHO"
-                    };
-                    oracleVendors.Add(vendor);
-                    oracleVendors.SaveChanges();
-                    //oracleContext.SaveChanges();
+                    //var vendor = new VENDOR
+                    //{
+                    //    Name = "PESHO"
+                    //};
+                    //oracleVendors.Add(vendor);
+                    //oracleVendors.SaveChanges();
+                    oracleContext.SaveChanges();
                 }
             }
             catch (Exception)

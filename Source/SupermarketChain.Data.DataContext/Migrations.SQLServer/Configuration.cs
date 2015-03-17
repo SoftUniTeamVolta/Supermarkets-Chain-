@@ -32,6 +32,49 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
             {
                 Configuration.AddProductTestData(context);
             }
+
+            if (!context.SuperMarkets.Any())
+            {
+                Configuration.AddSuperMarketsTestData(context);
+            }
+
+            if (!context.Sales.Any())
+            {
+                Configuration.AddSalesTestData(context);
+            }
+        }
+
+        private static void AddSuperMarketsTestData(MsDataContext context)
+        {
+            var supermarkets = new List<SuperMarket>
+            {
+                new SuperMarket {Name = "Pri bay Ivan"},
+                new SuperMarket {Name = "Pri bay gosho"}
+            };
+
+            supermarkets.ForEach(s => context.SuperMarkets.Add(s));
+            context.SaveChanges();
+        }
+
+        private static void AddSalesTestData(MsDataContext context)
+        {
+            var zagorkaVendor = context.Vendors.FirstOrDefault(v => v.Name == "Zagorka SA");
+            var superMarket = context.SuperMarkets.First();
+
+            var sales = new List<Sale>
+            {
+                new Sale
+                {
+                    Vendor = zagorkaVendor,
+                    ProductId = zagorkaVendor.Products.First().Id,
+                    SuperMarket = superMarket,
+                    UnitPrice = 1.50m,
+                    Quantity = 500
+                }
+            };
+
+            sales.ForEach(s => context.Sales.Add(s));
+            context.SaveChanges();
         }
 
         private static void AddVendorTestData(MsDataContext context)

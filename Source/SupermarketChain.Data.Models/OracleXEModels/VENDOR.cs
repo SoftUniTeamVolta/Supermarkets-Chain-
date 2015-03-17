@@ -11,10 +11,12 @@
     public class VENDOR : IDeletableEntity, IAuditInfo
     {
         private ICollection<PRODUCT> products;
+        private ICollection<SALE> sales; 
 
         public VENDOR()
         {
             this.products = new HashSet<PRODUCT>();
+            this.sales = new HashSet<SALE>();
         }
 
         [Key]
@@ -23,13 +25,19 @@
 
         [Required]
         [StringLength(250, MinimumLength = 5)]
-        [Column("Name")]
+        [Column("NAME")]
         public string Name { get; set; }
 
         public virtual ICollection<PRODUCT> Products
         {
             get { return this.products; }
             set { this.products = value; }
+        }
+
+        public virtual ICollection<SALE> Sales
+        {
+            get { return this.sales; }
+            set { this.sales = value; }
         }
 
         [Column("IS_DELETED")]

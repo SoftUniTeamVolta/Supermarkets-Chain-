@@ -3,7 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using Contracts;
+
     using Contracts.Interfaces;
 
     [Table("ADMIN.PRODUCTS")]
