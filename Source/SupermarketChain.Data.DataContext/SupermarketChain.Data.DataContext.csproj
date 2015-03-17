@@ -67,10 +67,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations.Oracle\201503172135564_InitialCreate.cs" />
-    <Compile Include="Migrations.Oracle\201503172135564_InitialCreate.Designer.cs">
-      <DependentUpon>201503172135564_InitialCreate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations.Oracle\Configuration.cs" />
     <Compile Include="Migrations.SQLServer\Configuration.cs" />
     <Compile Include="MsDataContext.cs" />
@@ -101,11 +97,6 @@
       <Project>{0a4e51e9-de65-4180-ab57-fecfdf574d8e}</Project>
       <Name>SupermarketChain.Data.Models</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations.Oracle\201503172135564_InitialCreate.resx">
-      <DependentUpon>201503172135564_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

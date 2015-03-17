@@ -6,13 +6,14 @@
     using Contracts.Interfaces;
     using Models.SQLServerModels;
 
+    using Migrations.SQLServer;
+
     public class MsDataContext : DbContext, IDataContext
     {
         public MsDataContext()
             : base("SupermarketChain")
         {
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<MsDataContext, Configuration>());
-            Database.SetInitializer(new CreateDatabaseIfNotExists<MsDataContext>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MsDataContext, Configuration>());
         }
 
         public IDbSet<SuperMarket> SuperMarkets { get; set; }

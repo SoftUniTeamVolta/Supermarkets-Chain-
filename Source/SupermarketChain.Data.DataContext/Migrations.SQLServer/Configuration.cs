@@ -7,7 +7,7 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
     using System.Linq;
     using Models.SQLServerModels;
 
-    public sealed class Configuration : DbMigrationsConfiguration<MsDataContext>
+    public sealed class Configuration : DbMigrationsConfiguration<SupermarketChain.Data.DataContext.MsDataContext>
     {
         public Configuration()
         {
@@ -61,12 +61,54 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
             var zagorkaVendor = context.Vendors.FirstOrDefault(v => v.Name == "Zagorka SA");
             var superMarket = context.SuperMarkets.First();
 
+            var kamenitzaVendor = context.Vendors.FirstOrDefault(v => v.Name == "Kamenitza SA");
+
             var sales = new List<Sale>
             {
                 new Sale
                 {
                     Vendor = zagorkaVendor,
                     ProductId = zagorkaVendor.Products.First().Id,
+                    SuperMarket = superMarket,
+                    UnitPrice = 1.50m,
+                    Quantity = 500
+                },
+                new Sale
+                {
+                    Vendor = zagorkaVendor,
+                    ProductId = zagorkaVendor.Products.Last().Id,
+                    SuperMarket = superMarket,
+                    UnitPrice = 1.50m,
+                    Quantity = 500
+                },
+                new Sale
+                {
+                    Vendor = zagorkaVendor,
+                    ProductId = zagorkaVendor.Products.First().Id,
+                    SuperMarket = superMarket,
+                    UnitPrice = 1.50m,
+                    Quantity = 500
+                },
+                new Sale
+                {
+                    Vendor = kamenitzaVendor,
+                    ProductId = kamenitzaVendor.Products.First().Id,
+                    SuperMarket = superMarket,
+                    UnitPrice = 1.50m,
+                    Quantity = 500
+                },
+                new Sale
+                {
+                    Vendor = kamenitzaVendor,
+                    ProductId = kamenitzaVendor.Products.Last().Id,
+                    SuperMarket = superMarket,
+                    UnitPrice = 1.50m,
+                    Quantity = 500
+                },
+                new Sale
+                {
+                    Vendor = kamenitzaVendor,
+                    ProductId = kamenitzaVendor.Products.First().Id,
                     SuperMarket = superMarket,
                     UnitPrice = 1.50m,
                     Quantity = 500
@@ -109,11 +151,13 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
 
         private static void AddProductTestData(MsDataContext context)
         {
-            var vendor = context.Vendors.FirstOrDefault(v => v.Name == "Zagorka SA");
+            var zagorkaVendor = context.Vendors.FirstOrDefault(v => v.Name == "Zagorka SA");
+            var kamentzaVendor = context.Vendors.FirstOrDefault(v => v.Name == "Kamenitza SA");
             var measure = context.Measures.FirstOrDefault(m => m.Name == "liter");
             var products = new List<Product>
             {
-                new Product {VendorId = vendor.Id, Name = "Beer \"Zagorka\"", MeasureId = measure.Id}
+                new Product {VendorId = zagorkaVendor.Id, Name = "Beer \"Zagorka\"", MeasureId = measure.Id},
+                new Product {VendorId = kamentzaVendor.Id, Name = "Beer \"Kamenitza\"", MeasureId = measure.Id}
             };
 
             products.ForEach(p => context.Products.Add(p));
