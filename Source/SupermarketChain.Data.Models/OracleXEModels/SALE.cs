@@ -4,10 +4,11 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using Contracts.Interfaces;
     using System;
+    using Contracts;
     using SQLServerModels;
 
     [Table("ADMIN.SALES")]
-    public class SALE : IDeletableEntity
+    public class SALE : IDeletableEntity, IAuditInfo
     {
         private decimal sum;
 
@@ -19,7 +20,7 @@
         [Column("PRODUCT_ID")]
         public int ProductId { get; set; }
 
-        public Product Product { get; set; }
+        public PRODUCT Product { get; set; }
 
         [Required]
         [Range(1, Int32.MaxValue)]
@@ -30,6 +31,7 @@
         [Column("UNIT_PRICE")]
         public decimal UnitPrice { get; set; }
 
+        [Column("SUM")]
         public decimal Sum
         {
             get { return this.sum; }
@@ -40,12 +42,21 @@
         [Column("SUPER_MARKET_ID")]
         public int SuperMarketId { get; set; }
 
-        public SuperMarket SuperMarket { get; set; }
+        public SUPERMARKET SuperMarket { get; set; }
 
         [Column("IS_DELETED")]
         public bool IsDeleted { get; set; }
 
         [Column("DELETED_ON")]
         public DateTime? DeletedOn { get; set; }
+
+        [Column("CREATED_ON")]
+        public DateTime CreatedOn { get; set; }
+
+        [Column("MODIFIED_ON")]
+        public DateTime? ModifiedOn { get; set; }
+
+        [Column("PRESERVE_CREATED_ON")]
+        public bool PreserveCreatedOn { get; set; }
     }
 }

@@ -12,7 +12,8 @@
         public MsDataContext()
             : base("SupermarketChain")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MsDataContext, Configuration>());
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<MsDataContext, Configuration>());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<MsDataContext>());
         }
 
         public IDbSet<SuperMarket> SuperMarkets { get; set; }
@@ -30,10 +31,10 @@
             return new MsDataContext();
         }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.HasDefaultSchema("SupermarketChain");
-        }
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.HasDefaultSchema("SupermarketChain");
+        //}
 
         public override int SaveChanges()
         {

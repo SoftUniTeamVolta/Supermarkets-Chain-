@@ -4,7 +4,7 @@
 
     using Interfaces;
 
-    public class DeletableEntity : AuditInfo, IDeletableEntity
+    public abstract class DeletableEntity : AuditInfo, IDeletableEntity
     {
         public bool IsDeleted { get; set; }
 

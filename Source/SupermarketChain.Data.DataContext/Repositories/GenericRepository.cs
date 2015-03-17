@@ -180,6 +180,11 @@
             this.OracleContext.Dispose();
         }
 
+        public virtual T GetFirstEntry()
+        {
+            return this.DbSet.ToList().FirstOrDefault();
+        }
+
         public virtual T GetLatestEntry()
         {
             return this.DbSet.ToList().LastOrDefault();

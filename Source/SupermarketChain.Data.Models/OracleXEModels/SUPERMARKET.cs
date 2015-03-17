@@ -1,12 +1,13 @@
 ﻿namespace SupermarketChain.Data.Models.OracleXEModels
 {
-    using System.ComponentModel.DataAnnotations;
     using System;
-    using Contracts.Interfaces;
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Contracts;
+    using Contracts.Interfaces;
 
     [Table("ADMIN.SUPERMARKETS")]
-    public class SUPERMARKET : IDeletableEntity
+    public class SUPERMARKET : IDeletableEntity, IAuditInfo
     {
         [Key]
         [Column("ID")]
@@ -14,12 +15,22 @@
 
         [Required]
         [StringLength(100, MinimumLength = 3)]
-        public string NAME { get; set; }
+        [Column("Name")]
+        public string Name { get; set; }
 
         [Column("IS_DELETED")]
         public bool IsDeleted { get; set; }
 
         [Column("DELETED_ON")]
         public DateTime? DeletedOn { get; set; }
+
+        [Column("CREATED_ON")]
+        public DateTime CreatedOn { get; set; }
+
+        [Column("MODIFIED_ON")]
+        public DateTime? ModifiedOn { get; set; }
+
+        [Column("PRESERVE_CREATED_ON")]
+        public bool PreserveCreatedOn { get; set; }
     }
 }

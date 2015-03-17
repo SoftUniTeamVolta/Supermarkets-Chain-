@@ -3,6 +3,7 @@ namespace SupermarketChain.Data.DataContext.Migrations.Oracle
     using System.Collections.Generic;
     using System.Data.Entity.Migrations;
     using System.Linq;
+
     using Models.OracleXEModels;
 
     public sealed class Configuration : DbMigrationsConfiguration<OracleDataContext>
@@ -10,23 +11,24 @@ namespace SupermarketChain.Data.DataContext.Migrations.Oracle
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
             MigrationsDirectory = @"Migrations.Oracle";
-            ContextKey = "SupermarketChain.Data.DataContext.OracleDataContext";
+            //ContextKey = "SupermarketChain.Data.DataContext.OracleDataContext";
         }
 
         protected override void Seed(OracleDataContext context)
         {
-            if (!context.MEASURES.Any())
+            if (!context.Measures.Any())
             {
                 Configuration.AddMeasureTestData(context);
             }
 
-            if (!context.VENDORS.Any())
+            if (!context.Vendors.Any())
             {
                 Configuration.AddVendorTestData(context);
             }
 
-            if (!context.PRODUCTS.Any())
+            if (!context.Products.Any())
             {
                 Configuration.AddProductTestData(context);
             }
@@ -49,14 +51,14 @@ END;
             context.Database.SqlQuery<VENDOR>(createSequenceVendorTable);
             var vendors = new List<VENDOR>
             {
-                new VENDOR {NAME = "Zagorka SA"},
-                new VENDOR {NAME = "Kamenitza SA"},
-                new VENDOR {NAME = "Bio Bulgaria Ltd."},
-                new VENDOR {NAME = "Mondelez Bulgaria Ltd."},
-                new VENDOR {NAME = "Intersnack Bulgaria Ltd."}
+                new VENDOR {Name = "Zagorka SA"},
+                new VENDOR {Name = "Kamenitza SA"},
+                new VENDOR {Name = "Bio Bulgaria Ltd."},
+                new VENDOR {Name = "Mondelez Bulgaria Ltd."},
+                new VENDOR {Name = "Intersnack Bulgaria Ltd."}
             };
 
-            vendors.ForEach(v => context.VENDORS.Add(v));
+            vendors.ForEach(v => context.Vendors.Add(v));
             context.SaveChanges();
         }
 
@@ -75,14 +77,14 @@ END;";
             context.Database.SqlQuery<MEASURE>(createSequenceMeasureTable);
             var measures = new List<MEASURE>
             {
-                new MEASURE {NAME = "milliliter", ABBREVIATION = "ml"},
-                new MEASURE {NAME = "liter", ABBREVIATION = "l"},
-                new MEASURE {NAME = "gram", ABBREVIATION = "gr"},
-                new MEASURE {NAME = "kilogram", ABBREVIATION = "kg"},
-                new MEASURE {NAME = "piece", ABBREVIATION = "pc"}
+                new MEASURE {Name = "milliliter", Abbreviation = "ml"},
+                new MEASURE {Name = "liter", Abbreviation = "l"},
+                new MEASURE {Name = "gram", Abbreviation = "gr"},
+                new MEASURE {Name = "kilogram", Abbreviation = "kg"},
+                new MEASURE {Name = "piece", Abbreviation = "pc"}
             };
 
-            measures.ForEach(m => context.MEASURES.Add(m));
+            measures.ForEach(m => context.Measures.Add(m));
             context.SaveChanges();
         }
 
@@ -98,14 +100,14 @@ INTO :new.id
 FROM dual;
 END;";
             context.Database.SqlQuery<PRODUCT>(createSequenceProductTable);
-            var vendor = context.VENDORS.FirstOrDefault(v => v.NAME == "Zagorka SA");
-            var measure = context.MEASURES.FirstOrDefault(m => m.NAME == "liter");
+            var vendor = context.Vendors.FirstOrDefault(v => v.Name == "Zagorka SA");
+            var measure = context.Measures.FirstOrDefault(m => m.Name == "liter");
             var products = new List<PRODUCT>
             {
-                new PRODUCT {VENDOR_ID = vendor.ID, NAME = "Beer \"Zagorka\"", MEASURE_ID = measure.ID}
+                new PRODUCT {VendorId = vendor.Id, Name = "Beer \"Zagorka\"", MeasureId = measure.Id}
             };
 
-            products.ForEach(p => context.PRODUCTS.Add(p));
+            products.ForEach(p => context.Products.Add(p));
             context.SaveChanges();
         }
     }

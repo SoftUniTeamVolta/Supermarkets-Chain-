@@ -13,7 +13,7 @@
 Press 1 to populate Oracle Db SupermarketChain with test data.
 Press 2 copy all data from OracleDb to SQL Server.
 Press 3 to populate SQL Server Db SupermarketChain with test data.
-Prezz q to quit the application.");
+Press q to quit the application.");
 
                 var userInput = Convert.ToString(Console.ReadLine()).Trim();
 

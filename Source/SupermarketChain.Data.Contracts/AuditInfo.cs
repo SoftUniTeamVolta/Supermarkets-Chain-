@@ -4,7 +4,7 @@
 
     using Interfaces;
 
-    public class AuditInfo : IAuditInfo
+    public abstract class AuditInfo : IAuditInfo
     {
         public DateTime CreatedOn { get; set; }
 

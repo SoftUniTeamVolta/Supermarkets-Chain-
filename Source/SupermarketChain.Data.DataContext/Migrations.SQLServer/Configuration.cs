@@ -7,7 +7,7 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
     using System.Linq;
     using Models.SQLServerModels;
 
-    public sealed class Configuration : DbMigrationsConfiguration<SupermarketChain.Data.DataContext.MsDataContext>
+    public sealed class Configuration : DbMigrationsConfiguration<MsDataContext>
     {
         public Configuration()
         {

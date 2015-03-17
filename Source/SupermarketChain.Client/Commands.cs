@@ -1,9 +1,12 @@
 ﻿namespace SupermarketChain.Client
 {
     using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Linq;
-
+    using AutoMapper;
     using Data.DataContext;
+    using Data.DataContext.Migrations.Oracle;
     using Data.DataContext.Repositories;
 
     using Data.Models.OracleXEModels;
@@ -28,8 +31,15 @@
                         var sqlVendors = new GenericRepository<Vendor>(sqlServerContext);
                         var sqlProducts = new GenericRepository<Product>(sqlServerContext);
 
-                        Commands.CheckAndPopulateVendorsCount(oracleVendors, sqlVendors);
+                        Mapper.CreateMap<VENDOR, Vendor>()
+                                .ForMember(v => v.Products, opt => opt.MapFrom(p => p.Products));
+                        Mapper.CreateMap<PRODUCT, Product>();
+                                //.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+                        Mapper.CreateMap<MEASURE, Measure>();
+                        Mapper.AssertConfigurationIsValid();
+
                         Commands.CheckAndPopulateMeasuresCount(oracleMeasures, sqlMeasures);
+                        Commands.CheckAndPopulateVendorsCount(oracleVendors, sqlVendors);
                         Commands.CheckAndPopulateProductsCount(oracleProducts, sqlProducts);
 
                         //var listMeasures = sqlMeasures.GetAll();
@@ -60,15 +70,26 @@
             if (oracleEntity.GetAll().Count() != sqlEntity.GetAll().Count())
             {
                 var lastSqlEntity = sqlEntity.GetLatestEntry();
-                var uniqueOracleVendors = oracleEntity.Find(v => v.CreatedOn > lastSqlEntity.CreatedOn);
-                foreach (var entity in uniqueOracleVendors)
+                IEnumerable<PRODUCT> uniqueOracleProducts; 
+                if (lastSqlEntity == null)
                 {
-                    var product = new Product
-                    {
-                        VendorId = entity.VENDOR_ID,
-                        Name = entity.NAME,
-                        MeasureId = entity.MEASURE_ID
-                    };
+                    var first = oracleEntity.GetFirstEntry();
+                    uniqueOracleProducts = oracleEntity.Find(v => v.CreatedOn == first.CreatedOn);
+                }
+                else
+                {
+                    uniqueOracleProducts = oracleEntity.Find(v => v.CreatedOn > lastSqlEntity.CreatedOn);
+                }
+
+                foreach (var entity in uniqueOracleProducts)
+                {
+                    var product = Mapper.Map<PRODUCT, Product>(entity);
+                    //var product = new Product
+                    //{
+                    //    VendorId = entity.VENDOR_ID,
+                    //    Name = entity.NAME,
+                    //    MeasureId = entity.MEASURE_ID
+                    //};
                     sqlEntity.Add(product);
                 }
 
@@ -82,14 +103,25 @@
             if (oracleEntity.GetAll().Count() != sqlEntity.GetAll().Count())
             {
                 var lastSqlEntity = sqlEntity.GetLatestEntry();
-                var uniqueOracleVendors = oracleEntity.Find(v => v.CreatedOn > lastSqlEntity.CreatedOn);
-                foreach (var entity in uniqueOracleVendors)
+                IEnumerable<MEASURE> uniqueOracleMeasures;
+                if (lastSqlEntity == null)
                 {
-                    var measure = new Measure
-                    {
-                        Name = entity.NAME,
-                        Abbreviation = entity.ABBREVIATION
-                    };
+                    var first = oracleEntity.GetFirstEntry();
+                    uniqueOracleMeasures = oracleEntity.Find(v => v.CreatedOn == first.CreatedOn);
+                }
+                else
+                {
+                    uniqueOracleMeasures = oracleEntity.Find(v => v.CreatedOn > lastSqlEntity.CreatedOn);
+                }
+
+                foreach (var entity in uniqueOracleMeasures)
+                {
+                    var measure = Mapper.Map<MEASURE, Measure>(entity);
+                    //var measure = new Measure
+                    //{
+                    //    Name = entity.NAME,
+                    //    Abbreviation = entity.ABBREVIATION
+                    //};
                     sqlEntity.Add(measure);
                 }
 
@@ -103,13 +135,26 @@
             if (oracleEntity.GetAll().Count() != sqlEntity.GetAll().Count())
             {
                 var lastSqlEntity = sqlEntity.GetLatestEntry();
-                var uniqueOracleVendors = oracleEntity.Find(v => v.CreatedOn > lastSqlEntity.CreatedOn);
+
+                IEnumerable<VENDOR> uniqueOracleVendors;
+                if (lastSqlEntity == null)
+                {
+                    var first = oracleEntity.GetFirstEntry();
+                    uniqueOracleVendors = oracleEntity.Find(v => v.CreatedOn == first.CreatedOn);
+                }
+                else
+                {
+                    uniqueOracleVendors = oracleEntity.Find(v => v.CreatedOn > lastSqlEntity.CreatedOn);
+                }
+                
+                
                 foreach (var entity in uniqueOracleVendors)
                 {
-                    var vendor = new Vendor
-                    {
-                        Name = entity.NAME
-                    };
+                    var vendor = Mapper.Map<VENDOR, Vendor>(entity);
+                    //var vendor = new Vendor
+                    //{
+                    //    Name = entity.NAME
+                    //};
                     sqlEntity.Add(vendor);
                 }
 
@@ -121,25 +166,26 @@
         {
             try
             {
-                //Database.SetInitializer(new MigrateDatabaseToLatestVersion<OracleDataContext, Configuration>());
+                Database.SetInitializer(new MigrateDatabaseToLatestVersion<OracleDataContext, Configuration>());
                 using (var oracleContext = new OracleDataContext())
                 {
                     var oracleVendors = new GenericRepository<VENDOR>(oracleContext);
-                    //var measures = new GenericRepository<MEASURES>(oracleContext);
+                    var measures = new GenericRepository<MEASURE>(oracleContext);
 
-                    //var listMeasures = measures.GetAll();
+                    var listMeasures = measures.GetAll();
 
-                    //foreach (var v in listMeasures)
-                    //{
-                    //    Console.WriteLine(v.NAME);
-                    //}
+                    foreach (var v in listMeasures)
+                    {
+                        Console.WriteLine(v.Name);
+                    }
 
-                    //var vendor = new VENDORS
-                    //{
-                    //    NAME = "PESHO"
-                    //};
-                    //oracleVendors.Add(vendor);
-                    //oracleVendors.SaveChanges();
+                    var vendor = new VENDOR
+                    {
+                        Name = "PESHO"
+                    };
+                    oracleVendors.Add(vendor);
+                    oracleVendors.SaveChanges();
+                    //oracleContext.SaveChanges();
                 }
             }
             catch (Exception)

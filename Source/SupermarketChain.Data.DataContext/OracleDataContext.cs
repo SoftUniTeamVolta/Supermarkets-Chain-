@@ -3,27 +3,27 @@
     using System;
     using System.Data.Entity;
     using System.Linq;
+
     using Contracts.Interfaces;
     using Models.OracleXEModels;
-    using Migrations.Oracle;
 
     public class OracleDataContext : DbContext
     {
         public OracleDataContext()
             : base("name=OracleDb")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<OracleDataContext, Configuration>());
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<OracleDataContext, Migrations.Oracle.Configuration>());
         }
 
         public IDbSet<SUPERMARKET> Supermarkets { get; set; }
 
         public IDbSet<SALE> Sales { get; set; }
 
-        public IDbSet<PRODUCT> PRODUCTS { get; set; }
+        public IDbSet<PRODUCT> Products { get; set; }
 
-        public IDbSet<VENDOR> VENDORS { get; set; }
+        public IDbSet<VENDOR> Vendors { get; set; }
 
-        public IDbSet<MEASURE> MEASURES { get; set; }
+        public IDbSet<MEASURE> Measures { get; set; }
 
         public static OracleDataContext Create()
         {
@@ -58,7 +58,7 @@
                                      e.Entity is IAuditInfo &&
                                      ((e.State == EntityState.Added) || (e.State == EntityState.Modified))))
             {
-                var entity = (IAuditInfo) entry.Entity;
+                var entity = (IAuditInfo)entry.Entity;
 
                 if (entry.State == EntityState.Added)
                 {
@@ -82,7 +82,7 @@
                     ChangeTracker.Entries()
                                  .Where(e => e.Entity is IDeletableEntity && (e.State == EntityState.Deleted)))
             {
-                var entity = (IDeletableEntity) entry.Entity;
+                var entity = (IDeletableEntity)entry.Entity;
 
                 entity.DeletedOn = DateTime.Now;
                 entity.IsDeleted = true;

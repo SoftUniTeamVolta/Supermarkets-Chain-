@@ -9,6 +9,10 @@
 
     public interface IDataContext : IDisposable
     {
+        IDbSet<SuperMarket> SuperMarkets { get; set; }
+
+        IDbSet<Sale> Sales { get; set; }
+
         IDbSet<Product> Products { get; set; }
 
         IDbSet<Vendor> Vendors { get; set; }
