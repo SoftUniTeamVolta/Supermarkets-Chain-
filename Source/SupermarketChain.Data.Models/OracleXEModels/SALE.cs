@@ -1,10 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace SupermarketChain.Data.Models.OracleXEModels
+﻿namespace SupermarketChain.Data.Models.OracleXEModels
 {
     using System.ComponentModel.DataAnnotations;
-    using System;
+    using System.ComponentModel.DataAnnotations.Schema;
     using Contracts.Interfaces;
+    using System;
     using SQLServerModels;
 
     [Table("ADMIN.SALES")]

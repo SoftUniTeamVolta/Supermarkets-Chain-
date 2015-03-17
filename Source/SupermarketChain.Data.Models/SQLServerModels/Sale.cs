@@ -2,9 +2,9 @@
 {
     using System.ComponentModel.DataAnnotations;
     using System;
-    using Contracts.Interfaces;
+    using Contracts;
 
-    public class Sale : IDeletableEntity
+    public class Sale : DeletableEntity
     {
         private decimal sum;
 
@@ -33,9 +33,5 @@
         public int SuperMarketId { get; set; }
 
         public SuperMarket SuperMarket { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
 }
