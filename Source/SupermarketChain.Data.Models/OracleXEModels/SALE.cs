@@ -1,4 +1,6 @@
-﻿namespace SupermarketChain.Data.Models.OracleXEModels
+﻿using System.Collections.Generic;
+
+namespace SupermarketChain.Data.Models.OracleXEModels
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -47,5 +49,10 @@
 
         [Column("DELETED_ON")]
         public DateTime? DeletedOn { get; set; }
+
+        [Column("VENDOR_ID")]
+        public int VendorId { get; set; }
+
+        public VENDOR Vendor { get; set; }
     }
 }

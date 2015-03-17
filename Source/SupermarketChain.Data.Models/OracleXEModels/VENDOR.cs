@@ -9,10 +9,12 @@
     public class VENDOR : DeletableEntity
     {
         private ICollection<PRODUCT> products;
+        private ICollection<SALE> sales; 
 
         public VENDOR()
         {
             this.products = new HashSet<PRODUCT>();
+            this.sales = new HashSet<SALE>();
         }
 
         [Key]
@@ -26,6 +28,12 @@
         {
             get { return this.products; }
             set { this.products = value; }
+        }
+
+        public virtual ICollection<SALE> Sales
+        {
+            get { return this.sales; }
+            set { this.sales = value; }
         }
     }
 }
