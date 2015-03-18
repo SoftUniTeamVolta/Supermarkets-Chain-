@@ -53,6 +53,7 @@
     <Compile Include="OracleXEModels\SALE.cs" />
     <Compile Include="OracleXEModels\SUPERMARKET.cs" />
     <Compile Include="OracleXEModels\VENDOR.cs" />
+    <Compile Include="SQLServerModels\Exprense.cs" />
     <Compile Include="SQLServerModels\Measure.cs" />
     <Compile Include="SQLServerModels\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
