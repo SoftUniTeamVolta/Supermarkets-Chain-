@@ -8,13 +8,13 @@
     {
         private ICollection<Product> products;
         private ICollection<Sale> sales;
-        private ICollection<Exprense> exprenses;
+        private ICollection<Expense> exprenses;
 
         public Vendor()
         {
             this.products = new HashSet<Product>();
             this.sales = new HashSet<Sale>();
-            this.exprenses = new HashSet<Exprense>();
+            this.exprenses = new HashSet<Expense>();
         }
 
         [Key]
@@ -36,7 +36,7 @@
             set { this.products = value; }
         }
 
-        public virtual ICollection<Exprense> Exprenses
+        public virtual ICollection<Expense> Exprenses
         {
             get { return this.exprenses; }
             set { this.exprenses = value; }
