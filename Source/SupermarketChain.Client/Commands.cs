@@ -38,7 +38,7 @@
                                 .ForMember(v => v.Sales, opt => opt.MapFrom(s => s.Sales));
                         Mapper.CreateMap<PRODUCT, Product>();
                         Mapper.CreateMap<SALE, Sale>();
-                        Mapper.CreateMap<SUPERMARKET, SuperMarket>();
+                        Mapper.CreateMap<SUPERMARKET, Supermarket>();
                         Mapper.CreateMap<MEASURE, Measure>();
                         Mapper.AssertConfigurationIsValid();
 

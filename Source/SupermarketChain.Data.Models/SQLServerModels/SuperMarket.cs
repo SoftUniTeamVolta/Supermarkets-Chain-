@@ -3,7 +3,7 @@
     using System.ComponentModel.DataAnnotations;
     using Contracts;
 
-    public class SuperMarket : DeletableEntity
+    public class Supermarket : DeletableEntity
     {
         [Key]
         public int Id { get; set; }

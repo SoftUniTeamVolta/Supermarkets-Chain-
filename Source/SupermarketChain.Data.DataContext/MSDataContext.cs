@@ -16,7 +16,7 @@
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<MsDataContext, Configuration>());
         }
 
-        public IDbSet<SuperMarket> SuperMarkets { get; set; }
+        public IDbSet<Supermarket> SuperMarkets { get; set; }
 
         public IDbSet<Sale> Sales { get; set; }
 

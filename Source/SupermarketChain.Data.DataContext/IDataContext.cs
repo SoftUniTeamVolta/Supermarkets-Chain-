@@ -9,7 +9,7 @@
 
     public interface IDataContext : IDisposable
     {
-        IDbSet<SuperMarket> SuperMarkets { get; set; }
+        IDbSet<Supermarket> SuperMarkets { get; set; }
 
         IDbSet<Sale> Sales { get; set; }
 

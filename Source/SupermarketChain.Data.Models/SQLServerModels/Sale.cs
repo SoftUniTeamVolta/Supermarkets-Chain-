@@ -22,7 +22,7 @@ namespace SupermarketChain.Data.Models.SQLServerModels
         [Required]
         public int ProductId { get; set; }
 
-        public Product Product { get; set; }
+        public virtual Product Product { get; set; }
 
         [Required]
         [Range(1, Int32.MaxValue)]
@@ -31,11 +31,10 @@ namespace SupermarketChain.Data.Models.SQLServerModels
         [Required]
         public decimal UnitPrice { get; set; }
 
-        [Column("Sum")]
         public decimal Sum { get; set; }
 
-        public SuperMarket SuperMarket { get; set; }
+        public virtual Supermarket Supermarket { get; set; }
 
-        public Vendor Vendor { get; set; }
+        public virtual Vendor Vendor { get; set; }
     }
 }

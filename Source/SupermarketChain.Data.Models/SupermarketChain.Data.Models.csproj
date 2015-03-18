@@ -57,7 +57,7 @@
     <Compile Include="SQLServerModels\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLServerModels\Sale.cs" />
-    <Compile Include="SQLServerModels\SuperMarket.cs" />
+    <Compile Include="SQLServerModels\Supermarket.cs" />
     <Compile Include="SQLServerModels\Vendor.cs" />
   </ItemGroup>
   <ItemGroup>

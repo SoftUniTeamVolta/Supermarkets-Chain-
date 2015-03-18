@@ -46,10 +46,10 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
 
         private static void AddSuperMarketsTestData(MsDataContext context)
         {
-            var supermarkets = new List<SuperMarket>
+            var supermarkets = new List<Supermarket>
             {
-                new SuperMarket {Name = "Pri bay Ivan"},
-                new SuperMarket {Name = "Pri bay gosho"}
+                new Supermarket {Name = "Pri bay Ivan"},
+                new Supermarket {Name = "Pri bay gosho"}
             };
 
             supermarkets.ForEach(s => context.SuperMarkets.Add(s));
@@ -69,7 +69,7 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
                 {
                     Vendor = zagorkaVendor,
                     ProductId = zagorkaVendor.Products.First().Id,
-                    SuperMarket = superMarket,
+                    Supermarket = superMarket,
                     UnitPrice = 1.50m,
                     Quantity = 500
                 },
@@ -77,7 +77,7 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
                 {
                     Vendor = zagorkaVendor,
                     ProductId = zagorkaVendor.Products.Last().Id,
-                    SuperMarket = superMarket,
+                    Supermarket = superMarket,
                     UnitPrice = 1.50m,
                     Quantity = 500
                 },
@@ -85,7 +85,7 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
                 {
                     Vendor = zagorkaVendor,
                     ProductId = zagorkaVendor.Products.First().Id,
-                    SuperMarket = superMarket,
+                    Supermarket = superMarket,
                     UnitPrice = 1.50m,
                     Quantity = 500
                 },
@@ -93,7 +93,7 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
                 {
                     Vendor = kamenitzaVendor,
                     ProductId = kamenitzaVendor.Products.First().Id,
-                    SuperMarket = superMarket,
+                    Supermarket = superMarket,
                     UnitPrice = 1.50m,
                     Quantity = 500
                 },
@@ -101,7 +101,7 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
                 {
                     Vendor = kamenitzaVendor,
                     ProductId = kamenitzaVendor.Products.Last().Id,
-                    SuperMarket = superMarket,
+                    Supermarket = superMarket,
                     UnitPrice = 1.50m,
                     Quantity = 500
                 },
@@ -109,7 +109,7 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
                 {
                     Vendor = kamenitzaVendor,
                     ProductId = kamenitzaVendor.Products.First().Id,
-                    SuperMarket = superMarket,
+                    Supermarket = superMarket,
                     UnitPrice = 1.50m,
                     Quantity = 500
                 }
