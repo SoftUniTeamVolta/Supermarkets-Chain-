@@ -87,6 +87,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SupermarketChain.Apps.XmlExpenseImport\SupermarketChain.Apps.XmlExpenseImport.csproj">
+      <Project>{225399A2-BC49-49A1-8273-7C83103DC7D8}</Project>
+      <Name>SupermarketChain.Apps.XmlExpenseImport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SupermarketChain.Apps.XmlReportGenerator\SupermarketChain.Apps.XmlReportGenerator.csproj">
+      <Project>{0F09E939-48E2-46DA-87DF-BF32E7BBEA38}</Project>
+      <Name>SupermarketChain.Apps.XmlReportGenerator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SupermarketChain.Data.Contracts\SupermarketChain.Data.Contracts.csproj">
       <Project>{68944AFE-69FD-4D50-A625-54708527516D}</Project>
       <Name>SupermarketChain.Data.Contracts</Name>
