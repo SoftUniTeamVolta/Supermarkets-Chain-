@@ -40,6 +40,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupermarketChain.Apps.XmlRe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupermarketChain.Apps.XmlExpenseImport", "SupermarketChain.Apps.XmlExpenseImport\SupermarketChain.Apps.XmlExpenseImport.csproj", "{225399A2-BC49-49A1-8273-7C83103DC7D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupermarketChain.Apps.JSONReportGenerator", "SupermarketChain.Apps.JSONReportGenerator\SupermarketChain.Apps.JSONReportGenerator.csproj", "{AF91A7B6-B8C0-473D-AAC1-BDE3E985EF50}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -90,6 +92,10 @@ Global
 		{225399A2-BC49-49A1-8273-7C83103DC7D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{225399A2-BC49-49A1-8273-7C83103DC7D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{225399A2-BC49-49A1-8273-7C83103DC7D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF91A7B6-B8C0-473D-AAC1-BDE3E985EF50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF91A7B6-B8C0-473D-AAC1-BDE3E985EF50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF91A7B6-B8C0-473D-AAC1-BDE3E985EF50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF91A7B6-B8C0-473D-AAC1-BDE3E985EF50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,6 +112,7 @@ Global
 		{A68F3FEA-CA16-40C1-976C-437FA9E5CA74} = {77D0F64F-8E00-478D-A8EC-1467D6D6FD5B}
 		{0F09E939-48E2-46DA-87DF-BF32E7BBEA38} = {77D0F64F-8E00-478D-A8EC-1467D6D6FD5B}
 		{225399A2-BC49-49A1-8273-7C83103DC7D8} = {77D0F64F-8E00-478D-A8EC-1467D6D6FD5B}
+		{AF91A7B6-B8C0-473D-AAC1-BDE3E985EF50} = {77D0F64F-8E00-478D-A8EC-1467D6D6FD5B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35

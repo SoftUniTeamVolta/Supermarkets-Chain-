@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using SupermarketChain.Apps.JSONReportGenerator;
 using SupermarketChain.Apps.XmlExpenseImport;
 using SupermarketChain.Apps.XmlReportGenerator;
 
@@ -19,6 +20,7 @@ Press 2 copy all data from OracleDb to SQL Server.
 Press 3 to populate SQL Server Db SupermarketChain with test data.
 Press 4 to generate xml report for start date and end date.
 Press 5 to import data from xml.
+Press 6 to generate JSON report for start date and end date
 Press q to quit the application.");
 
                 var userInput = Convert.ToString(Console.ReadLine()).Trim();
@@ -45,6 +47,14 @@ Press q to quit the application.");
 
                     case "5":
                         XmlImport.ImportExpenses();
+                        break;
+
+                    case "6":
+                        Console.WriteLine("Enter start date and end date on separated lines in fortmat [dd-MM-yyyy]:");
+
+                        startDate = DateTime.Parse(Console.ReadLine());
+                        endDate = DateTime.ParseExact(Console.ReadLine(), "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                        JSONReportGeneratorMain.GenerateJSONReport(startDate, endDate);
                         break;
 
                     case "q":
