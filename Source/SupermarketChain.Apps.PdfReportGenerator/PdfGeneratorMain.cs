@@ -18,7 +18,7 @@
     {
         private static readonly string PdfDocumentName = "SalesReport.pdf";
         private static readonly string DocumentOutputPath;
-        private const string OutputDir = "..\\..\\..\\Reports\\PdfReports\\";
+        private const string OutputDir = "../../../generated-reports/pdf-reports/";
 
         static PdfGeneratorMain()
         {
@@ -48,11 +48,19 @@
                     Console.WriteLine("Pdf sales report was generated");
                 }
             }
+            catch (DirectoryNotFoundException e)
+            {
+                Console.WriteLine(e.Message);
+            }
             catch (IOException e)
             {
                 Console.WriteLine("The file you tried to write or modified is unaccessible right now. Please try again.");
             }
             catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (UnauthorizedAccessException e)
             {
                 Console.WriteLine(e.Message);
             }

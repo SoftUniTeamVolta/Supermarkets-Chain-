@@ -1,12 +1,12 @@
-using System.Globalization;
-using SupermarketChain.Apps.JSONReportGenerator;
-using SupermarketChain.Apps.XmlExpenseImport;
-using SupermarketChain.Apps.XmlReportGenerator;
-
 namespace SupermarketChain.Client
 {
     using System;
+    using System.Globalization;
+
+    using Apps.JSONReportGenerator;
     using Apps.PdfReportGenerator;
+    using Apps.XmlExpenseImport;
+    using Apps.XmlReportGenerator;
 
     public class Client
     {
@@ -51,7 +51,8 @@ Press q to quit the application.");
                         Console.WriteLine("Enter start date and end date on separated lines in fortmat [dd-MM-yyyy]:");
 
                         DateTime startDate = DateTime.Parse(Console.ReadLine());
-                        DateTime endDate = DateTime.ParseExact(Console.ReadLine(), "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                        DateTime endDate = DateTime.ParseExact(Console.ReadLine(), "dd-MM-yyyy",
+                            CultureInfo.InvariantCulture);
 
                         XmlReportGenerator.GenerateXmlReport(startDate, endDate);
                         Console.WriteLine("Press any key to return to the initial menu.");
@@ -76,15 +77,20 @@ Press q to quit the application.");
                         break;
                     case "7":
                         Console.WriteLine("Enter start date and end date in format [dd-MM-yyyy]:");
-                        Console.WriteLine("If you do not enter start and/or end date, a sales report for the current date will be generated.");
+                        Console.WriteLine(
+                            "If you do not enter start and/or end date, a sales report for the current date will be generated.");
                         Console.Write("Start date:");
                         string startDateStr = Console.ReadLine();
                         Console.Write("End date:");
                         string endDateStr = Console.ReadLine();
-                        if (string.IsNullOrWhiteSpace(startDateStr) || string.IsNullOrWhiteSpace(endDateStr))
+                        if (string.IsNullOrWhiteSpace(startDateStr))
                         {
                             startDateStr = DateTime.Now.ToShortDateString();
-                            endDateStr = DateTime.Now.ToShortDateString();
+                           
+                        }
+                        if (string.IsNullOrWhiteSpace(endDateStr))
+                        {
+                             endDateStr = DateTime.Now.ToShortDateString();
                         }
 
                         string[] args = {startDateStr, endDateStr};

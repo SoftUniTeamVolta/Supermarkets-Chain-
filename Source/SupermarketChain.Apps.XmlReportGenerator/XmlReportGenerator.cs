@@ -2,6 +2,7 @@
 {
     using System;
     using System.Data.Entity;
+    using System.IO;
     using System.Linq;
     using System.Xml;
     using Common.Utils;
@@ -10,12 +11,30 @@
     public static class XmlReportGenerator
     {
         private const string DocumentName = "SalesReport.xml";
-        private const string OutputDir = "../../../generated-files";
+        private const string OutputDir = "../../../generated-reports/xml-reports/";
 
         public static void GenerateXmlReport(DateTime startDate, DateTime endDate)
         {
             using (var context = new MsDataContext())
             {
+                try
+                {
+                    Directory.CreateDirectory(XmlReportGenerator.OutputDir);
+                }
+                catch (DirectoryNotFoundException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                catch (IOException e)
+                {
+
+                    Console.WriteLine(e.Message);
+                }
+                catch (UnauthorizedAccessException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                
                 var doc = new XmlDocument();
 
                 XmlDeclaration declaration = doc.CreateXmlDeclaration("1.0", null, null);

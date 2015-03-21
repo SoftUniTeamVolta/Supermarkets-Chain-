@@ -10,7 +10,7 @@
 
     public static class XmlImport
     {
-        private const string DocumentPath = "../../../../files-for-import/Sample-Vendor-Expenses.xml";
+        private const string DocumentPath = "../../../files-for-import/Sample-Vendor-Expenses.xml";
 
         public static void ImportExpenses()
         {
