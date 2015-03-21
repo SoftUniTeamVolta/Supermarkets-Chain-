@@ -13,7 +13,8 @@
         public MsDataContext()
             : base("SupermarketChain")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MsDataContext, Configuration>());
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<MsDataContext, Configuration>());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<MsDataContext>());
         }
 
         public IDbSet<Supermarket> SuperMarkets { get; set; }

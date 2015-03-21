@@ -100,12 +100,17 @@ INTO :new.id
 FROM dual;
 END;";
             context.Database.SqlQuery<PRODUCT>(createSequenceProductTable);
-            var vendor = context.Vendors.FirstOrDefault(v => v.Name == "Zagorka SA");
+            var zagorkaVendor = context.Vendors.FirstOrDefault(v => v.Name == "Zagorka SA");
+            var kamentzaVendor = context.Vendors.FirstOrDefault(v => v.Name == "Kamenitza SA");
             var measure = context.Measures.FirstOrDefault(m => m.Name == "liter");
             var products = new List<PRODUCT>
             {
-                new PRODUCT {VendorId = vendor.Id, Name = "Beer \"Zagorka\"", MeasureId = measure.Id}
+                new PRODUCT {VendorId = zagorkaVendor.Id, Name = "Beer \"Zagorka\"", MeasureId = measure.Id},
+                new PRODUCT {VendorId = kamentzaVendor.Id, Name = "Beer \"Kamenitza\"", MeasureId = measure.Id}
             };
+
+            products.ForEach(p => context.Products.Add(p));
+            context.SaveChanges();
 
             products.ForEach(p => context.Products.Add(p));
             context.SaveChanges();

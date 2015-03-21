@@ -6,7 +6,7 @@
     using System.Linq;
 
     using AutoMapper;
-
+    using AutoMapper.Internal;
     using Data.DataContext;
     using Data.DataContext.Migrations.Oracle;
     using Data.DataContext.Repositories;
@@ -33,13 +33,18 @@
                         var sqlVendors = new GenericRepository<Vendor>(sqlServerContext);
                         var sqlProducts = new GenericRepository<Product>(sqlServerContext);
 
+                        Mapper.CreateMap<MEASURE, Measure>();
                         Mapper.CreateMap<VENDOR, Vendor>()
-                                .ForMember(v => v.Products, opt => opt.MapFrom(p => p.Products))
-                                .ForMember(v => v.Sales, opt => opt.MapFrom(s => s.Sales));
-                        Mapper.CreateMap<PRODUCT, Product>();
+                              //.ForMember(v => v.Products, opt => opt.MapFrom(p => p.Products))
+                              .ForMember(v => v.Sales, opt => opt.MapFrom(s => s.Sales))
+                              .ForMember(v => v.Expenses, opt => opt.Ignore())
+                              .ForMember(v => v.Products, opt => opt.Ignore());
+
+                        Mapper.CreateMap<PRODUCT, Product>()
+                              .ForMember(p => p.Measure, opt => opt.Ignore())
+                              .ForMember(p => p.Vendor, opt => opt.Ignore());
                         Mapper.CreateMap<SALE, Sale>();
                         Mapper.CreateMap<SUPERMARKET, Supermarket>();
-                        Mapper.CreateMap<MEASURE, Measure>();
                         Mapper.AssertConfigurationIsValid();
 
                         Commands.CheckAndPopulateMeasuresCount(oracleMeasures, sqlMeasures);
@@ -68,10 +73,11 @@
         }
 
         private static void CheckAndPopulateProductsCount(GenericRepository<PRODUCT> oracleEntity
-                                                          , GenericRepository<Product> sqlEntity
-            )
+                                                          , GenericRepository<Product> sqlEntity)
         {
-            if (oracleEntity.GetAll().Count() != sqlEntity.GetAll().Count())
+            var oracleCount = oracleEntity.GetAll().Count();
+            var sqlServerCount = sqlEntity.GetAll().Count();
+            if (oracleCount != sqlServerCount)
             {
                 var lastSqlEntity = sqlEntity.GetLatestEntry();
                 IEnumerable<PRODUCT> uniqueOracleProducts; 
@@ -100,7 +106,9 @@
         private static void CheckAndPopulateMeasuresCount(GenericRepository<MEASURE> oracleEntity,
                                                           GenericRepository<Measure> sqlEntity)
         {
-            if (oracleEntity.GetAll().Count() != sqlEntity.GetAll().Count())
+            var oracleCount = oracleEntity.GetAll().Count();
+            var sqlServerCount = sqlEntity.GetAll().Count();
+            if (oracleCount != sqlServerCount)
             {
                 var lastSqlEntity = sqlEntity.GetLatestEntry();
                 IEnumerable<MEASURE> uniqueOracleMeasures;
@@ -127,7 +135,9 @@
         private static void CheckAndPopulateVendorsCount(GenericRepository<VENDOR> oracleEntity,
                                                          GenericRepository<Vendor> sqlEntity)
         {
-            if (oracleEntity.GetAll().Count() != sqlEntity.GetAll().Count())
+            var oracleCount = oracleEntity.GetAll().Count();
+            var sqlServerCount = sqlEntity.GetAll().Count();
+            if (oracleCount != sqlServerCount)
             {
                 var lastSqlEntity = sqlEntity.GetLatestEntry();
 

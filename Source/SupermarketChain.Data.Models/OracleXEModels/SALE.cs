@@ -12,6 +12,7 @@ namespace SupermarketChain.Data.Models.OracleXEModels
         public SALE()
         {
             this.Sum = this.Quantity*this.UnitPrice;
+            this.Date = DateTime.Now;
         }
 
         [Key]
