@@ -41,8 +41,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupermarketChain.Apps.XmlEx
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupermarketChain.Apps.JSONReportGenerator", "SupermarketChain.Apps.JSONReportGenerator\SupermarketChain.Apps.JSONReportGenerator.csproj", "{AF91A7B6-B8C0-473D-AAC1-BDE3E985EF50}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reports", "Reports", "{F490B70D-6A3B-4EE1-B449-CDEF28E0B49C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -65,54 +65,12 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
 
             var sales = new List<Sale>
             {
-                new Sale
-                {
-                    Vendor = zagorkaVendor,
-                    ProductId = zagorkaVendor.Products.First().Id,
-                    Supermarket = superMarket,
-                    UnitPrice = 1.50m,
-                    Quantity = 500
-                },
-                new Sale
-                {
-                    Vendor = zagorkaVendor,
-                    ProductId = zagorkaVendor.Products.Last().Id,
-                    Supermarket = superMarket,
-                    UnitPrice = 1.50m,
-                    Quantity = 500
-                },
-                new Sale
-                {
-                    Vendor = zagorkaVendor,
-                    ProductId = zagorkaVendor.Products.First().Id,
-                    Supermarket = superMarket,
-                    UnitPrice = 1.50m,
-                    Quantity = 500
-                },
-                new Sale
-                {
-                    Vendor = kamenitzaVendor,
-                    ProductId = kamenitzaVendor.Products.First().Id,
-                    Supermarket = superMarket,
-                    UnitPrice = 1.50m,
-                    Quantity = 500
-                },
-                new Sale
-                {
-                    Vendor = kamenitzaVendor,
-                    ProductId = kamenitzaVendor.Products.Last().Id,
-                    Supermarket = superMarket,
-                    UnitPrice = 1.50m,
-                    Quantity = 500
-                },
-                new Sale
-                {
-                    Vendor = kamenitzaVendor,
-                    ProductId = kamenitzaVendor.Products.First().Id,
-                    Supermarket = superMarket,
-                    UnitPrice = 1.50m,
-                    Quantity = 500
-                }
+                new Sale(zagorkaVendor, zagorkaVendor.Products.First().Id, superMarket, 1.50m, 500),
+                new Sale(zagorkaVendor, zagorkaVendor.Products.First().Id, superMarket, 1.50m, 500),
+                new Sale(zagorkaVendor, zagorkaVendor.Products.First().Id, superMarket, 1.50m, 500),
+                new Sale(kamenitzaVendor, kamenitzaVendor.Products.First().Id, superMarket, 1.50m, 500),
+                new Sale(kamenitzaVendor, kamenitzaVendor.Products.First().Id, superMarket, 1.50m, 500),
+                new Sale(kamenitzaVendor, kamenitzaVendor.Products.First().Id, superMarket, 1.50m, 500)
             };
 
             sales.ForEach(s => context.Sales.Add(s));

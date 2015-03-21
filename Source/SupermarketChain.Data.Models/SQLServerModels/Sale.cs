@@ -9,6 +9,16 @@ namespace SupermarketChain.Data.Models.SQLServerModels
     {
         public Sale()
         {
+            
+        }
+
+        public Sale(Vendor vendor, int productId, Supermarket supermarket, decimal unitPrice, int quantity)
+        {
+            this.Vendor = vendor;
+            this.ProductId = productId;
+            this.Supermarket = supermarket;
+            this.UnitPrice = unitPrice;
+            this.Quantity = quantity;
             this.Sum = this.Quantity*this.UnitPrice;
             this.Date = DateTime.Now;
         }
