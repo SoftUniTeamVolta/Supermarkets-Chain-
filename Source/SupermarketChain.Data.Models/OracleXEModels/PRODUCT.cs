@@ -6,15 +6,22 @@
 
     using Contracts.Interfaces;
     using System.Collections.Generic;
+    using System.ComponentModel;
 
     [Table("ADMIN.PRODUCTS")]
     public class PRODUCT : IDeletableEntity, IAuditInfo
     {
+        private DateTime createdOn;
+
+        private const bool PRESERVE_CREATED_ON = true;
+        private bool preserveCreatedOn = PRESERVE_CREATED_ON;
+
         private ICollection<SALE> sales;
 
         public PRODUCT()
         {
             this.sales = new HashSet<SALE>();
+            this.CreatedOn = DateTime.Now;
         }
 
         [Key]
@@ -56,12 +63,21 @@
         public DateTime? DeletedOn { get; set; }
 
         [Column("CREATED_ON")]
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedOn
+        {
+            get { return this.createdOn; }
+            set { this.createdOn = value; }
+        }
 
         [Column("MODIFIED_ON")]
         public DateTime? ModifiedOn { get; set; }
 
         [Column("PRESERVE_CREATED_ON")]
-        public bool PreserveCreatedOn { get; set; }
+        [DefaultValue(PRODUCT.PRESERVE_CREATED_ON)]
+        public bool PreserveCreatedOn
+        {
+            get { return this.preserveCreatedOn; }
+            set { this.preserveCreatedOn = value; }
+        }
     }
 }

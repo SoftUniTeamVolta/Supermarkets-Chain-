@@ -5,14 +5,21 @@ namespace SupermarketChain.Data.Models.OracleXEModels
     using System.ComponentModel.DataAnnotations.Schema;
 
     using Contracts.Interfaces;
+    using System.ComponentModel;
 
     [Table("ADMIN.SALES")]
     public class SALE : IDeletableEntity, IAuditInfo
     {
+        private DateTime createdOn;
+
+        private const bool PRESERVE_CREATED_ON = true;
+        private bool preserveCreatedOn = PRESERVE_CREATED_ON;
+
         public SALE()
         {
             this.Sum = this.Quantity*this.UnitPrice;
             this.Date = DateTime.Now;
+            this.CreatedOn = DateTime.Now;
         }
 
         [Key]
@@ -55,13 +62,22 @@ namespace SupermarketChain.Data.Models.OracleXEModels
         public DateTime? DeletedOn { get; set; }
 
         [Column("CREATED_ON")]
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedOn
+        {
+            get { return this.createdOn; }
+            set { this.createdOn = value; }
+        }
 
         [Column("MODIFIED_ON")]
         public DateTime? ModifiedOn { get; set; }
 
         [Column("PRESERVE_CREATED_ON")]
-        public bool PreserveCreatedOn { get; set; }
+        [DefaultValue(SALE.PRESERVE_CREATED_ON)]
+        public bool PreserveCreatedOn
+        {
+            get { return this.preserveCreatedOn; }
+            set { this.preserveCreatedOn = value; }
+        }
 
         [ForeignKey("Vendor")]
         [Column("VENDOR_ID")]

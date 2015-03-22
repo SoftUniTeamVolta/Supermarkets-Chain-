@@ -5,6 +5,7 @@ namespace SupermarketChain.Data.DataContext.Migrations.Oracle
     using System.Linq;
 
     using Models.OracleXEModels;
+    using System;
 
     public sealed class Configuration : DbMigrationsConfiguration<OracleDataContext>
     {
@@ -102,15 +103,23 @@ END;";
             context.Database.SqlQuery<PRODUCT>(createSequenceProductTable);
             var zagorkaVendor = context.Vendors.FirstOrDefault(v => v.Name == "Zagorka SA");
             var kamentzaVendor = context.Vendors.FirstOrDefault(v => v.Name == "Kamenitza SA");
-            var measure = context.Measures.FirstOrDefault(m => m.Name == "liter");
+            var bioBulgariaVendor = context.Vendors.FirstOrDefault(v => v.Name == "Bio Bulgaria Ltd.");
+            var mondelezVendor = context.Vendors.FirstOrDefault(v => v.Name == "Mondelez Bulgaria Ltd.");
+            var intersnackVendor = context.Vendors.FirstOrDefault(v => v.Name == "Intersnack Bulgaria Ltd.");
+            
+            
+            var measureL = context.Measures.FirstOrDefault(m => m.Name == "liter");
+            var measureML = context.Measures.FirstOrDefault(m => m.Name == "milliliter");
+            var measureGR = context.Measures.FirstOrDefault(m => m.Name == "gram");
+            var measureKG = context.Measures.FirstOrDefault(m => m.Name == "kilogram");
+            var measureP = context.Measures.FirstOrDefault(m => m.Name == "piece");
+
             var products = new List<PRODUCT>
             {
-                new PRODUCT {VendorId = zagorkaVendor.Id, Name = "Beer \"Zagorka\"", MeasureId = measure.Id},
-                new PRODUCT {VendorId = kamentzaVendor.Id, Name = "Beer \"Kamenitza\"", MeasureId = measure.Id}
+                new PRODUCT {VendorId = zagorkaVendor.Id, Name = "Beer \"Zagorka\"", MeasureId = measureL.Id, Price = 1.19m, CreatedOn = new DateTime(2015, 1, 1)},
+                new PRODUCT {VendorId = kamentzaVendor.Id, Name = "Beer \"Kamenitza\"", MeasureId = measureL.Id, Price = 1.09m},
+                new PRODUCT {VendorId = bioBulgariaVendor.Id, Name = "\"Whole rye boza\" Harmonica Boza", MeasureId = measureML.Id, Price = 1.42m, PreserveCreatedOn = false}
             };
-
-            products.ForEach(p => context.Products.Add(p));
-            context.SaveChanges();
 
             products.ForEach(p => context.Products.Add(p));
             context.SaveChanges();
