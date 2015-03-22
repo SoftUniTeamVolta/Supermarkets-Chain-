@@ -83,8 +83,12 @@
                 IEnumerable<PRODUCT> uniqueOracleProducts; 
                 if (lastSqlEntity == null)
                 {
-                    var first = oracleEntity.GetFirstEntry();
-                    uniqueOracleProducts = oracleEntity.Find(v => v.CreatedOn == first.CreatedOn);
+                    // What if we have products with different CreatedOn dates?
+                    //var first = oracleEntity.GetFirstEntry();
+                    //uniqueOracleProducts = oracleEntity.Find(v => v.CreatedOn == first.CreatedOn);
+
+                    //Better get all products to be sure that all products will transfer to MsDB
+                    uniqueOracleProducts = oracleEntity.GetAll();
                 }
                 else
                 {
@@ -114,8 +118,12 @@
                 IEnumerable<MEASURE> uniqueOracleMeasures;
                 if (lastSqlEntity == null)
                 {
-                    var first = oracleEntity.GetFirstEntry();
-                    uniqueOracleMeasures = oracleEntity.Find(v => v.CreatedOn == first.CreatedOn);
+                    // What if we have measures with different CreatedOn dates?
+                    //var first = oracleEntity.GetFirstEntry();
+                    //uniqueOracleMeasures = oracleEntity.Find(v => v.CreatedOn == first.CreatedOn);
+
+                    //Better get all measures to be sure that all measures will transfer to MsDB
+                    uniqueOracleMeasures = oracleEntity.GetAll();
                 }
                 else
                 {
@@ -144,8 +152,12 @@
                 IEnumerable<VENDOR> uniqueOracleVendors;
                 if (lastSqlEntity == null)
                 {
-                    var first = oracleEntity.GetFirstEntry();
-                    uniqueOracleVendors = oracleEntity.Find(v => v.CreatedOn == first.CreatedOn);
+                    // What if we have vendors with different CreatedOn dates?
+                    //var first = oracleEntity.GetFirstEntry();
+                    //uniqueOracleVendors = oracleEntity.Find(v => v.CreatedOn == first.CreatedOn);
+
+                    //Better get all vendors to be sure that all vendors will transfer to MsDB
+                    uniqueOracleVendors = oracleEntity.GetAll();
                 }
                 else
                 {
