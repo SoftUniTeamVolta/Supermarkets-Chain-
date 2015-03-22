@@ -5,10 +5,18 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     using Contracts.Interfaces;
+    using System.Collections.Generic;
 
     [Table("ADMIN.PRODUCTS")]
     public class PRODUCT : IDeletableEntity, IAuditInfo
     {
+        private ICollection<SALE> sales;
+
+        public PRODUCT()
+        {
+            this.sales = new HashSet<SALE>();
+        }
+
         [Key]
         [Column("ID")]
         public int Id { get; set; }
@@ -29,6 +37,12 @@
         public int MeasureId { get; set; }
 
         public virtual MEASURE Measure { get; set; }
+
+        public virtual ICollection<SALE> Sales
+        {
+            get { return this.sales; }
+            set { this.sales = value; }
+        }
 
         [Required]
         [DataType(DataType.Currency)]
