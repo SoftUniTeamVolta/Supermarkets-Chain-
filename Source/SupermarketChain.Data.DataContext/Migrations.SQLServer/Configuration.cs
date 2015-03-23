@@ -38,14 +38,14 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
 
             if (!context.SuperMarkets.Any())
             {
-                //Uncomment to populate MsSQL db when do not have Oracle server
-                //Configuration.AddSuperMarketsTestData(context);
+                //Uncomment to populate MsSQL db
+                Configuration.AddSuperMarketsTestData(context);
             }
 
             if (!context.Sales.Any())
             {
-                //Uncomment to populate MsSQL db when do not have Oracle server
-                //Configuration.AddSalesTestData(context);
+                //Uncomment to populate MsSQL db
+                Configuration.AddSalesTestData(context);
             }
         }
 
