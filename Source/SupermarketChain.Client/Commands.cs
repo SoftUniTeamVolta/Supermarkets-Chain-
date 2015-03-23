@@ -225,5 +225,23 @@
                 throw;
             }
         }
+
+        public static void CreateMySQLDb()
+        {
+            try
+            {
+                using (var context = new MySQLContext())
+                {
+                    context.SaveChanges();
+                    Console.WriteLine("MySQL database generated!");
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
