@@ -38,13 +38,15 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
 
             if (!context.SuperMarkets.Any())
             {
-                //Uncomment to populate MsSQL db
+                // Uncomment method and run task 2 again to prepare for task 3
+                // or move seed methods directly to Oracle Configuration.cs
                 Configuration.AddSuperMarketsTestData(context);
             }
 
             if (!context.Sales.Any())
             {
-                //Uncomment to populate MsSQL db
+                // Uncomment method and run task 2 again to prepare for task 3
+                // or move seed methods directly to Oracle Configuration.cs
                 Configuration.AddSalesTestData(context);
             }
         }
@@ -53,8 +55,13 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
         {
             var supermarkets = new List<Supermarket>
             {
-                new Supermarket {Name = "Pri bay Ivan"},
-                new Supermarket {Name = "Pri bay gosho"}
+                new Supermarket {Name = "Pikadili Lozenets"},
+                new Supermarket {Name = "Billa Lozenetz"},
+                new Supermarket {Name = "Carrefur Mall Sofia"},
+                new Supermarket {Name = "Laika"},
+                new Supermarket {Name = "Biomag Journalist Square"},
+                new Supermarket {Name = "Frodo Zlatovrah"},
+                new Supermarket {Name = "Fantastiko Students Town"}
             };
 
             supermarkets.ForEach(s => context.SuperMarkets.Add(s));
