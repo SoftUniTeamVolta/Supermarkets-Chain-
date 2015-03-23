@@ -26,14 +26,14 @@
             var path = Path.GetDirectoryName(assembly.Location);
 
             PdfGeneratorMain.DocumentOutputPath = Path.Combine(path, (PdfGeneratorMain.OutputDir + PdfGeneratorMain.PdfDocumentName));
-            Directory.CreateDirectory(Path.GetDirectoryName(PdfGeneratorMain.DocumentOutputPath));
+           
         }
 
         public static void Main(string[] args)
         {
             // Initialize only for testing! Remove when done.
-            DateTime startDate = new DateTime(2015, 03, 16);
-            DateTime endDate = new DateTime(2015, 03, 25);
+            DateTime startDate; //= new DateTime(2015, 03, 16);
+            DateTime endDate;// = new DateTime(2015, 03, 25);
 
 
 
@@ -41,8 +41,9 @@
             {
                 using (var context = new MsDataContext())
                 {
+                    Directory.CreateDirectory(Path.GetDirectoryName(PdfGeneratorMain.DocumentOutputPath));
                     PdfGeneratorMain.ValidateInputArguments(args, out startDate, out endDate);
-                    SortedDictionary<DateTime, ICollection<Sale>> data = PdfGeneratorMain.FetchDataFromDatabase(
+                    SortedDictionary<string, ICollection<Sale>> data = PdfGeneratorMain.FetchDataFromDatabase(
                         context, startDate, endDate);
                     Document pdfReport = PdfGeneratorMain.GeneratePdfReport(data, startDate, endDate);
                     Console.WriteLine("Pdf sales report was generated");
@@ -83,7 +84,7 @@
             }
         }
 
-        private static SortedDictionary<DateTime, ICollection<Sale>> FetchDataFromDatabase(IDataContext context,
+        private static SortedDictionary<string, ICollection<Sale>> FetchDataFromDatabase(IDataContext context,
                                                                                            DateTime startDate,
                                                                                            DateTime endDate)
         {
@@ -93,13 +94,14 @@
                     s => DbFunctions.TruncateTime(s.Date) >= startDate && DbFunctions.TruncateTime(s.Date) <= endDate)
                      .ToList();
 
-            var sortedData = new SortedDictionary<DateTime, ICollection<Sale>>();
+            var sortedData = new SortedDictionary<string, ICollection<Sale>>();
+
             foreach (var sale in result)
             {
-                DateTime date = sale.Date;
-                if (!sortedData.ContainsKey(sale.Date))
+                string date = sale.Date.ToShortDateString();
+                if (!sortedData.ContainsKey(date))
                 {
-                    sortedData.Add(sale.Date, new List<Sale>());
+                    sortedData.Add(date, new List<Sale>());
                 }
                 else
                 {
@@ -110,9 +112,11 @@
             return sortedData;
         }
 
-        private static Document GeneratePdfReport(SortedDictionary<DateTime, ICollection<Sale>> saleData,
+        private static Document GeneratePdfReport(SortedDictionary<string, ICollection<Sale>> saleData,
                                                   DateTime startDate, DateTime endDate)
         {
+            var gray = new BaseColor(175, 175, 175);
+            var darkGrey = new BaseColor(200, 200, 200);
             Document pdf = new Document(PageSize.A4, 2, 2, 2, 2);
             PdfPTable table = new PdfPTable(5); // 5-number of columns
             table.HorizontalAlignment = 1; // 0-left, 1-center, 2-right
@@ -123,23 +127,43 @@
                 PdfWriter writer = PdfWriter.GetInstance(pdf,
                     new FileStream(PdfGeneratorMain.DocumentOutputPath, FileMode.Create)))
             {
-                PdfPCell cell = new PdfPCell(new Phrase("Aggregated Sales Report"));
-                cell.Colspan = 5;
-                cell.HorizontalAlignment = 1;
+                PdfPCell headLineCell = new PdfPCell(new Phrase("Aggregated Sales Report"));
+                headLineCell.Colspan = 5;
+                headLineCell.HorizontalAlignment = 1;
                 table.DefaultCell.HorizontalAlignment = 1;
-                table.AddCell(cell);
-                table.AddCell("Product");
-                table.AddCell("Quantity");
-                table.AddCell("Unit Price");
-                table.AddCell("Location");
-                table.AddCell("Sum");
+                table.AddCell(headLineCell);
+                
                 foreach (var date in saleData)
                 {
-                    string dateStr = date.Key.ToShortDateString();
-                    var dateRow = new PdfPCell(new Phrase(dateStr));
+                    string dateStr = date.Key;
+                    decimal totalSum = 0m;
+                    var dateRow = new PdfPCell(new Phrase("Date: " + dateStr));
                     dateRow.Colspan = 5;
-                    //secondRow.BackgroundColor.Darker();
+                    dateRow.BackgroundColor = gray;
                     table.AddCell(dateRow);
+                    Chunk c1 = new Chunk("Product", new Font(Font.FontFamily.HELVETICA, Font.BOLD));
+                    Chunk c2 = new Chunk("Quantity", new Font(Font.FontFamily.HELVETICA, Font.BOLD));
+                    Chunk c3 = new Chunk("Unit Price", new Font(Font.FontFamily.HELVETICA, Font.BOLD));
+                    Chunk c4 = new Chunk("Location", new Font(Font.FontFamily.HELVETICA, Font.BOLD));
+                    Chunk c5 = new Chunk("Sum", new Font(Font.FontFamily.HELVETICA, Font.BOLD));
+
+                    var p1 = new PdfPCell(new Phrase(c1));
+                    var p2 = new PdfPCell(new Phrase(c2));
+                    var p3 = new PdfPCell(new Phrase(c3));
+                    var p4 = new PdfPCell(new Phrase(c4));
+                    var p5 = new PdfPCell(new Phrase(c5));
+
+                    p1.BackgroundColor = darkGrey;
+                    p2.BackgroundColor = darkGrey;
+                    p3.BackgroundColor = darkGrey;
+                    p4.BackgroundColor = darkGrey;
+                    p5.BackgroundColor = darkGrey;
+
+                    table.AddCell(p1);
+                    table.AddCell(p2);
+                    table.AddCell(p3);
+                    table.AddCell(p4);
+                    table.AddCell(p5);
                     //table.getDefaultCell().setBackgroundColor(BaseColor.LIGHT_GRAY);
                     foreach (var sale in date.Value)
                     {
@@ -148,9 +172,15 @@
                         table.AddCell(sale.UnitPrice.ToString());
                         table.AddCell(sale.Supermarket.Name);
                         table.AddCell(sale.Sum.ToString());
+                        totalSum += sale.Sum;
                     }
+                    var totalSumCell = new PdfPCell(new Phrase("Total sum for " + dateStr + ":"));
+                    totalSumCell.Colspan = 4;
+                    totalSumCell.HorizontalAlignment = 2;
+                    table.AddCell(totalSumCell);
+                    table.AddCell(totalSum.ToString());
                 }
-
+                
                 pdf.Open();
                 pdf.Add(table);
                 pdf.Close();

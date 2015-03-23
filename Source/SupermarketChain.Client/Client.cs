@@ -2,7 +2,7 @@ namespace SupermarketChain.Client
 {
     using System;
     using System.Globalization;
-
+    using System.Threading;
     using Apps.JSONReportGenerator;
     using Apps.PdfReportGenerator;
     using Apps.XmlExpenseImport;
@@ -12,6 +12,8 @@ namespace SupermarketChain.Client
     {
         private static void Main()
         {
+            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+
             bool quit = false;
             while (!quit)
             {
@@ -23,10 +25,13 @@ Press 4 to generate xml report for start date and end date.
 Press 5 to import data from xml.
 Press 6 to generate JSON report for start date and end date.
 Press 7 to generate Pdf report for specific period.
+Press 11 to load sale reports from a zip archive.
 Press q to quit the application.");
 
                 var userInput = Convert.ToString(Console.ReadLine()).Trim();
-
+                string startDateStr = string.Empty;
+                string endDateStr = string.Empty;
+                string[] args = new string[2];
                 switch (userInput)
                 {
                     case "1":
@@ -48,11 +53,10 @@ Press q to quit the application.");
                         Console.Clear();
                         break;
                     case "4":
-                        Console.WriteLine("Enter start date and end date on separated lines in fortmat [dd-MM-yyyy]:");
+                        Console.WriteLine("Enter start date and end date on separated lines in fortmat [yyyy-mm-dd]:");
 
-                        DateTime startDate = DateTime.Parse(Console.ReadLine());
-                        DateTime endDate = DateTime.ParseExact(Console.ReadLine(), "dd-MM-yyyy",
-                            CultureInfo.InvariantCulture);
+                        DateTime startDate = DateTime.Parse(Console.ReadLine().Trim());
+                        DateTime endDate = DateTime.Parse(Console.ReadLine().Trim());
 
                         XmlReportGenerator.GenerateXmlReport(startDate, endDate);
                         Console.WriteLine("Press any key to return to the initial menu.");
@@ -66,23 +70,13 @@ Press q to quit the application.");
                         Console.Clear();
                         break;
                     case "6":
-                        Console.WriteLine("Enter start date and end date on separated lines in fortmat [dd-MM-yyyy]:");
-
-                        startDate = DateTime.Parse(Console.ReadLine());
-                        endDate = DateTime.ParseExact(Console.ReadLine(), "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                        JSONReportGeneratorMain.GenerateJSONReport(startDate, endDate);
-                        Console.WriteLine("Press any key to return to the initial menu.");
-                        Console.ReadLine();
-                        Console.Clear();
-                        break;
-                    case "7":
-                        Console.WriteLine("Enter start date and end date in format [dd-MM-yyyy]:");
+                        Console.WriteLine("Enter start date and end date in format [yyyy-mm-dd]:");
                         Console.WriteLine(
                             "If you do not enter start and/or end date, a sales report for the current date will be generated.");
                         Console.Write("Start date:");
-                        string startDateStr = Console.ReadLine();
+                        startDateStr = Console.ReadLine().Trim();
                         Console.Write("End date:");
-                        string endDateStr = Console.ReadLine();
+                        endDateStr = Console.ReadLine().Trim();
                         if (string.IsNullOrWhiteSpace(startDateStr))
                         {
                             startDateStr = DateTime.Now.ToShortDateString();
@@ -93,11 +87,40 @@ Press q to quit the application.");
                              endDateStr = DateTime.Now.ToShortDateString();
                         }
 
-                        string[] args = {startDateStr, endDateStr};
+                        args[0] = startDateStr;
+                        args[1] = endDateStr;
+                        JSONReportGeneratorMain.Main(args);
+                        Console.WriteLine("Press any key to return to the initial menu.");
+                        Console.ReadLine();
+                        Console.Clear();
+                        break;
+                    case "7":
+                        Console.WriteLine("Enter start date and end date in format [yyyy-mm-dd]:");
+                        Console.WriteLine(
+                            "If you do not enter start and/or end date, a sales report for the current date will be generated.");
+                        Console.Write("Start date:");
+                        startDateStr = Console.ReadLine().Trim();
+                        Console.Write("End date:");
+                        endDateStr = Console.ReadLine().Trim();
+                        if (string.IsNullOrWhiteSpace(startDateStr))
+                        {
+                            startDateStr = DateTime.Now.ToShortDateString();
+                           
+                        }
+                        if (string.IsNullOrWhiteSpace(endDateStr))
+                        {
+                             endDateStr = DateTime.Now.ToShortDateString();
+                        }
+
+                        args[0] = startDateStr;
+                        args[1] = endDateStr;
                         PdfGeneratorMain.Main(args);
                         Console.WriteLine("Press any key to return to the initial menu.");
                         Console.ReadLine();
                         Console.Clear();
+                        break;
+                    case "11":
+                        Commands.LoadExcelReportsToSqlServer();
                         break;
                     case "q":
                         quit = true;

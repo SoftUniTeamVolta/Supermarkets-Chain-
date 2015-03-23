@@ -20,32 +20,32 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
         {
             if (!context.Measures.Any())
             {
-                //Uncomment to populate MsSQL db when do not have Oracle server
-                //Configuration.AddMeasureTestData(context);
+                // Uncomment to populate MsSQL db when do not have Oracle server
+                Configuration.AddMeasureTestData(context);
             }
 
             if (!context.Vendors.Any())
             {
-                //Uncomment to populate MsSQL db when do not have Oracle server
-                //Configuration.AddVendorTestData(context);
+                // Uncomment to populate MsSQL db when do not have Oracle server
+                Configuration.AddVendorTestData(context);
             }
 
             if (!context.Products.Any())
             {
-                //Uncomment to populate MsSQL db when do not have Oracle server
-                //Configuration.AddProductTestData(context);
+                // Uncomment to populate MsSQL db when do not have Oracle server
+                Configuration.AddProductTestData(context);
             }
 
             if (!context.SuperMarkets.Any())
             {
-                //Uncomment to populate MsSQL db when do not have Oracle server
-                //Configuration.AddSuperMarketsTestData(context);
+                // Uncomment to populate MsSQL db when do not have Oracle server
+                Configuration.AddSuperMarketsTestData(context);
             }
 
             if (!context.Sales.Any())
             {
-                //Uncomment to populate MsSQL db when do not have Oracle server
-                //Configuration.AddSalesTestData(context);
+                // Uncomment to populate MsSQL db when do not have Oracle server
+                Configuration.AddSalesTestData(context);
             }
         }
 

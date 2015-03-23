@@ -3,10 +3,10 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-
-    using Contracts.Interfaces;
     using System.ComponentModel;
 
+    using Contracts.Interfaces;
+    
     [Table("ADMIN.MEASURES")]
     public class MEASURE : IDeletableEntity, IAuditInfo
     {

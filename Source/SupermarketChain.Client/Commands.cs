@@ -2,9 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.Data.Entity;
+    using System.IO;
     using System.Linq;
-
+    using System.IO.Compression;
+    using System.Net.Mime;
+    using System.Xml;
     using AutoMapper;
     using AutoMapper.Internal;
     using Data.DataContext;
@@ -13,6 +17,7 @@
 
     using Data.Models.OracleXEModels;
     using Data.Models.SQLServerModels;
+    using Excel;
 
     public static class Commands
     {
@@ -223,6 +228,81 @@
             {
                 
                 throw;
+            }
+        }
+
+        public static void LoadExcelReportsToSqlServer()
+        {
+            string zipPath = "../../../files-for-import/Sample-Sales-Reports.zip";
+
+            try
+            {
+                using (ZipArchive archive = ZipFile.Open(zipPath, ZipArchiveMode.Read))
+                {
+                    
+                    var entries = archive.Entries;
+                    foreach (var entry in entries)
+                    {
+                        if (entry.ToString().Contains(".xls"))
+                        {
+                            ZipArchiveEntry sample = archive.GetEntry(entry.ToString());
+                            Stream excelZip = sample.Open();
+                            MemoryStream stream = new MemoryStream();
+                            excelZip.CopyTo(stream);
+                            IExcelDataReader excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
+                            DataSet result = excelReader.AsDataSet();
+                            string zipAsXML = result.GetXml();
+
+                            XmlDocument doc = new XmlDocument();
+                            //doc.Load(zipAsXML);
+
+                            XmlReader reader = XmlReader.Create(zipAsXML);
+
+                            //using (XmlReader reader = XmlReader.Create(zipAsXML))
+                            //{
+                            //    while (reader.Read())
+                            //    {
+                            //        if ((reader.NodeType == XmlNodeType.Element) &&
+                            //        (reader.Name == "Column2"))
+                            //        {
+                            //            Console.WriteLine(reader.ReadElementString());
+                            //        }
+                            //    }
+                            //}
+
+                            Console.WriteLine(zipAsXML);
+                            foreach (DataTable table in result.Tables)
+                            {
+                                foreach (DataRow row in table.Rows)
+                                {
+                                    foreach (var index in row.ItemArray)
+                                    {
+                                        var currentIndex = index as string;
+                                        if (currentIndex.Contains("Supermarket"))
+                                        {
+
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                        
+                        Console.WriteLine(entry);
+                    }
+                }
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
     }
