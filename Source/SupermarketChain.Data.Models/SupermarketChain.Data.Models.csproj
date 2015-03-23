@@ -48,6 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MySQLModels\Expense.cs" />
+    <Compile Include="MySQLModels\Income.cs" />
+    <Compile Include="MySQLModels\Measure.cs" />
+    <Compile Include="MySQLModels\Product.cs" />
+    <Compile Include="MySQLModels\Vendor.cs" />
     <Compile Include="OracleXEModels\MEASURE.cs" />
     <Compile Include="OracleXEModels\PRODUCT.cs" />
     <Compile Include="OracleXEModels\SALE.cs" />
@@ -71,6 +76,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

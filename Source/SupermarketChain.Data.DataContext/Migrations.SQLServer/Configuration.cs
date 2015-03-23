@@ -21,31 +21,36 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
             if (!context.Measures.Any())
             {
                 // Uncomment to populate MsSQL db when do not have Oracle server
-                Configuration.AddMeasureTestData(context);
+                // or move seed methods directly to Oracle Configuration.cs
+                // Configuration.AddMeasureTestData(context);
             }
 
             if (!context.Vendors.Any())
             {
                 // Uncomment to populate MsSQL db when do not have Oracle server
-                Configuration.AddVendorTestData(context);
+                // or move seed methods directly to Oracle Configuration.cs
+                // Configuration.AddVendorTestData(context);
             }
 
             if (!context.Products.Any())
             {
                 // Uncomment to populate MsSQL db when do not have Oracle server
-                Configuration.AddProductTestData(context);
+                // or move seed methods directly to Oracle Configuration.cs
+                // Configuration.AddProductTestData(context);
             }
 
             if (!context.SuperMarkets.Any())
             {
-                // Uncomment to populate MsSQL db when do not have Oracle server
-                Configuration.AddSuperMarketsTestData(context);
+                // Uncomment method and run task 2 again to prepare for task 3
+                // or move seed methods directly to Oracle Configuration.cs
+                // Configuration.AddSuperMarketsTestData(context);
             }
 
             if (!context.Sales.Any())
             {
-                // Uncomment to populate MsSQL db when do not have Oracle server
-                Configuration.AddSalesTestData(context);
+                // Uncomment method and run task 2 again to prepare for task 3
+                // or move seed methods directly to Oracle Configuration.cs
+                // Configuration.AddSalesTestData(context);
             }
         }
 
@@ -53,8 +58,13 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
         {
             var supermarkets = new List<Supermarket>
             {
-                new Supermarket {Name = "Pri bay Ivan"},
-                new Supermarket {Name = "Pri bay gosho"}
+                new Supermarket {Name = "Pikadili Lozenets"},
+                new Supermarket {Name = "Billa Lozenetz"},
+                new Supermarket {Name = "Carrefur Mall Sofia"},
+                new Supermarket {Name = "Laika"},
+                new Supermarket {Name = "Biomag Journalist Square"},
+                new Supermarket {Name = "Frodo Zlatovrah"},
+                new Supermarket {Name = "Fantastiko Students Town"}
             };
 
             supermarkets.ForEach(s => context.SuperMarkets.Add(s));
@@ -70,12 +80,12 @@ namespace SupermarketChain.Data.DataContext.Migrations.SQLServer
 
             var sales = new List<Sale>
             {
-                new Sale(zagorkaVendor, zagorkaVendor.Products.First().Id, superMarket, 1.50m, 500),
-                new Sale(zagorkaVendor, zagorkaVendor.Products.First().Id, superMarket, 1.50m, 500),
-                new Sale(zagorkaVendor, zagorkaVendor.Products.First().Id, superMarket, 1.50m, 500),
+                new Sale(zagorkaVendor, zagorkaVendor.Products.First().Id, superMarket, 1.50m, 250),
+                new Sale(zagorkaVendor, zagorkaVendor.Products.First().Id, superMarket, 1.50m, 345),
+                new Sale(zagorkaVendor, zagorkaVendor.Products.First().Id, superMarket, 1.50m, 150),
                 new Sale(kamenitzaVendor, kamenitzaVendor.Products.First().Id, superMarket, 1.50m, 500),
-                new Sale(kamenitzaVendor, kamenitzaVendor.Products.First().Id, superMarket, 1.50m, 500),
-                new Sale(kamenitzaVendor, kamenitzaVendor.Products.First().Id, superMarket, 1.50m, 500)
+                new Sale(kamenitzaVendor, kamenitzaVendor.Products.First().Id, superMarket, 1.50m, 600),
+                new Sale(kamenitzaVendor, kamenitzaVendor.Products.First().Id, superMarket, 1.50m, 240)
             };
 
             sales.ForEach(s => context.Sales.Add(s));

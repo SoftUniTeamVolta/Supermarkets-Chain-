@@ -74,7 +74,9 @@
             using (var context = new MsDataContext())
             {
                 MongoClient client = new MongoClient("mongodb://localhost");
+#pragma warning disable 618
                 MongoServer server = client.GetServer();
+#pragma warning restore 618
                 MongoDatabase db = server.GetDatabase("SupermarketChain");
                 var collection = db.GetCollection<string>("SalesByProductReports");
 

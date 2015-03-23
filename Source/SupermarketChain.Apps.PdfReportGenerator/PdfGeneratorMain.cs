@@ -53,7 +53,7 @@
             {
                 Console.WriteLine(e.Message);
             }
-            catch (IOException e)
+            catch (IOException)
             {
                 Console.WriteLine("The file you tried to write or modified is unaccessible right now. Please try again.");
             }
@@ -141,17 +141,17 @@
                     dateRow.Colspan = 5;
                     dateRow.BackgroundColor = gray;
                     table.AddCell(dateRow);
-                    Chunk c1 = new Chunk("Product", new Font(Font.FontFamily.HELVETICA, Font.BOLD));
-                    Chunk c2 = new Chunk("Quantity", new Font(Font.FontFamily.HELVETICA, Font.BOLD));
-                    Chunk c3 = new Chunk("Unit Price", new Font(Font.FontFamily.HELVETICA, Font.BOLD));
-                    Chunk c4 = new Chunk("Location", new Font(Font.FontFamily.HELVETICA, Font.BOLD));
-                    Chunk c5 = new Chunk("Sum", new Font(Font.FontFamily.HELVETICA, Font.BOLD));
+                    //Chunk c1 = new Chunk("Product", new Font(Font.FontFamily.HELVETICA, Font.BOLD));
+                    //Chunk c2 = new Chunk("Quantity", new Font(Font.FontFamily.HELVETICA, Font.BOLD));
+                    //Chunk c3 = new Chunk("Unit Price", new Font(Font.FontFamily.HELVETICA, Font.BOLD));
+                    //Chunk c4 = new Chunk("Location", new Font(Font.FontFamily.HELVETICA, Font.BOLD));
+                    //Chunk c5 = new Chunk("Sum", new Font(Font.FontFamily.HELVETICA, Font.BOLD));
 
-                    var p1 = new PdfPCell(new Phrase(c1));
-                    var p2 = new PdfPCell(new Phrase(c2));
-                    var p3 = new PdfPCell(new Phrase(c3));
-                    var p4 = new PdfPCell(new Phrase(c4));
-                    var p5 = new PdfPCell(new Phrase(c5));
+                    var p1 = new PdfPCell(new Phrase("Product"));
+                    var p2 = new PdfPCell(new Phrase("Quantity"));
+                    var p3 = new PdfPCell(new Phrase("Unit Price"));
+                    var p4 = new PdfPCell(new Phrase("Location"));
+                    var p5 = new PdfPCell(new Phrase("Sum"));
 
                     p1.BackgroundColor = darkGrey;
                     p2.BackgroundColor = darkGrey;

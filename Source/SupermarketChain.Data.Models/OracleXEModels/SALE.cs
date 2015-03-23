@@ -17,6 +17,16 @@ namespace SupermarketChain.Data.Models.OracleXEModels
 
         public SALE()
         {
+            
+        }
+
+        public SALE(VENDOR vendor, int productId, SUPERMARKET supermarket, decimal unitPrice, int quantity)
+        {
+            this.Vendor = vendor;
+            this.ProductId = productId;
+            this.Supermarket = supermarket;
+            this.UnitPrice = unitPrice;
+            this.Quantity = quantity;
             this.Sum = this.Quantity*this.UnitPrice;
             this.Date = DateTime.Now;
             this.CreatedOn = DateTime.Now;

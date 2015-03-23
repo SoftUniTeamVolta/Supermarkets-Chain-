@@ -40,10 +40,10 @@
 
                         Mapper.CreateMap<MEASURE, Measure>();
                         Mapper.CreateMap<VENDOR, Vendor>()
-                              //.ForMember(v => v.Products, opt => opt.MapFrom(p => p.Products))
+                              .ForMember(v => v.Products, opt => opt.MapFrom(p => p.Products))
                               .ForMember(v => v.Sales, opt => opt.MapFrom(s => s.Sales))
-                              .ForMember(v => v.Expenses, opt => opt.Ignore())
-                              .ForMember(v => v.Products, opt => opt.Ignore());
+                              .ForMember(v => v.Expenses, opt => opt.Ignore());
+                              //.ForMember(v => v.Products, opt => opt.Ignore())
 
                         Mapper.CreateMap<PRODUCT, Product>()
                               .ForMember(p => p.Measure, opt => opt.Ignore())
@@ -85,7 +85,7 @@
             if (oracleCount != sqlServerCount)
             {
                 var lastSqlEntity = sqlEntity.GetLatestEntry();
-                IEnumerable<PRODUCT> uniqueOracleProducts; 
+                IEnumerable<PRODUCT> uniqueOracleProducts;
                 if (lastSqlEntity == null)
                 {
                     // What if we have products with different CreatedOn dates?
@@ -168,8 +168,8 @@
                 {
                     uniqueOracleVendors = oracleEntity.Find(v => v.CreatedOn > lastSqlEntity.CreatedOn);
                 }
-                
-                
+
+
                 foreach (var entity in uniqueOracleVendors)
                 {
                     var vendor = Mapper.Map<VENDOR, Vendor>(entity);
@@ -226,7 +226,25 @@
             }
             catch (Exception)
             {
-                
+
+                throw;
+            }
+        }
+
+        public static void CreateMySQLDb()
+        {
+            try
+            {
+                using (var context = new MySQLContext())
+                {
+                    context.SaveChanges();
+                    Console.WriteLine("MySQL database generated!");
+                }
+
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }
@@ -239,7 +257,7 @@
             {
                 using (ZipArchive archive = ZipFile.Open(zipPath, ZipArchiveMode.Read))
                 {
-                    
+
                     var entries = archive.Entries;
                     foreach (var entry in entries)
                     {
@@ -287,7 +305,7 @@
                             }
 
                         }
-                        
+
                         Console.WriteLine(entry);
                     }
                 }
